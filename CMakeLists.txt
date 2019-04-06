@@ -31,16 +31,15 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-set(NODELET_NAME sgm_gpu_nodelet)
-add_library(${NODELET_NAME}
-  src/${NODELET_NAME}.cu
+add_library(${PROJECT_NAME}
+  src/sgm_gpu_nodelet.cu
   sgm/costs.cu
   sgm/debug.cu
   sgm/disparity_method.cu
   sgm/hamming_cost.cu
   sgm/median_filter.cu
 )
-target_link_libraries(${NODELET_NAME}
+target_link_libraries(${PROJECT_NAME}
   ${catkin_LIBRARIES}
   ${OpenCV_LIBS}
 )
