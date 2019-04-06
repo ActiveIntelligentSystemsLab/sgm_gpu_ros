@@ -1,7 +1,7 @@
 #include "sgm_gpu_nodelet.h"
 
 #include <pluginlib/class_list_macros.h>
-PLUGINLIB_EXPORT_CLASS(sgm_gpu_wrapper::SgmGpuNodelet, nodelet::Nodelet);
+PLUGINLIB_EXPORT_CLASS(sgm_gpu_ros_wrapper::SgmGpuNodelet, nodelet::Nodelet);
 
 #include <cv_bridge/cv_bridge.h>
 #include <image_geometry/stereo_camera_model.h>
@@ -13,7 +13,7 @@ PLUGINLIB_EXPORT_CLASS(sgm_gpu_wrapper::SgmGpuNodelet, nodelet::Nodelet);
 
 #include "disparity_method.h"
 
-namespace sgm_gpu_wrapper {
+namespace sgm_gpu_ros_wrapper {
 
 void SgmGpuNodelet::onInit()
 {

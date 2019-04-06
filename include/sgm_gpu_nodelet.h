@@ -8,7 +8,7 @@
 
 #include <memory>
 
-namespace sgm_gpu_wrapper {
+namespace sgm_gpu_ros_wrapper {
 
 class SgmGpuNodelet : public nodelet::Nodelet
 {
