@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<library path="lib/libsgm_gpu_ros_wrapper">
+  <class name="sgm_gpu_ros_wrapper/sgm_gpu_nodelet" type="sgm_gpu_ros_wrapper::SgmGpuNodelet" base_class_type="nodelet::Nodelet">
+  <description>
+    SGM stereo matching nodelet implemented by CUDA
+  </description>
+  </class>
+</library>

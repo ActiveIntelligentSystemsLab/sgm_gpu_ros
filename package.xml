@@ -19,4 +19,8 @@
   <depend>roscpp</depend>
   <depend>sensor_msgs</depend>
   <depend>stereo_msgs</depend>
+
+  <export>
+    <nodelet plugin="${prefix}/nodelet_plugin.xml"/>
+  </export>
 </package>
