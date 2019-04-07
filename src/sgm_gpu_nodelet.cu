@@ -21,8 +21,8 @@ void SgmGpuNodelet::onInit()
   ros::NodeHandle &private_node_handle = getPrivateNodeHandle();
 
   // Get parameters used in SGM algorithm
-  sgm_p1_ = static_cast<uint8_t>(private_node_handle.param("p1", 0));
-  sgm_p2_ = static_cast<uint8_t>(private_node_handle.param("p2", 0));
+  sgm_p1_ = static_cast<uint8_t>(private_node_handle.param("p1", 6));
+  sgm_p2_ = static_cast<uint8_t>(private_node_handle.param("p2", 96));
 
   image_transport_.reset(new image_transport::ImageTransport(node_handle));
 
