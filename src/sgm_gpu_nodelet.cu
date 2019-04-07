@@ -68,14 +68,17 @@ void SgmGpuNodelet::stereoCallback(const sensor_msgs::ImageConstPtr &left_image_
   }
 
   float elapsed_time_ms;
-  cv::Mat disparity = compute_disparity_method(cv_left_image->image, cv_right_image->image, &elapsed_time_ms, NULL, NULL);
+  cv::Mat disparity_8u = compute_disparity_method(cv_left_image->image, cv_right_image->image, &elapsed_time_ms, NULL, NULL);
 
   NODELET_INFO("Elapsed time: %f [ms]", elapsed_time_ms);
+
+  cv::Mat disparity_32f;
+  disparity_8u.convertTo(disparity_32f, CV_32F);
 
   stereo_msgs::DisparityImage disparity_msg;
   disparity_msg.header = left_image_msg->header;
 
-  cv_bridge::CvImage disparity_converter(left_image_msg->header, sensor_msgs::image_encodings::TYPE_32FC1, disparity);
+  cv_bridge::CvImage disparity_converter(left_image_msg->header, sensor_msgs::image_encodings::TYPE_32FC1, disparity_32f);
   disparity_converter.toImageMsg(disparity_msg.image);
 
   image_geometry::StereoCameraModel stereo_model;
