@@ -40,7 +40,7 @@ void SgmGpuNodelet::onInit()
   std::string left_info_topic = image_transport::getCameraInfoTopic(left_base_topic);
   std::string right_info_topic = image_transport::getCameraInfoTopic(right_base_topic);
   left_info_sub_.subscribe(node_handle, left_info_topic, 10);
-  left_info_sub_.subscribe(node_handle, right_info_topic, 10);
+  right_info_sub_.subscribe(node_handle, right_info_topic, 10);
 
   // TODO: Set queue size correctly
   stereo_synchronizer_.reset(new StereoSynchronizer(left_image_sub_, right_image_sub_, left_info_sub_, right_info_sub_, 10));
