@@ -88,7 +88,7 @@ void SgmGpuNodelet::stereoCallback(const sensor_msgs::ImageConstPtr &left_image_
 
   // TODO: set elements in DisparityImage correctly
   disparity_msg.min_disparity = 0.0;
-  disparity_msg.max_disparity = left_image_msg->width;
+  disparity_msg.max_disparity = 128.0;
 
   disparity_pub_.publish(disparity_msg);
 }
