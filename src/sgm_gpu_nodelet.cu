@@ -103,9 +103,10 @@ void SgmGpuNodelet::stereoCallback(const sensor_msgs::ImageConstPtr &left_image_
   disparity_msg.f = stereo_model.left().fx();
   disparity_msg.T = stereo_model.baseline();
 
-  // TODO: set elements in DisparityImage correctly
   disparity_msg.min_disparity = 0.0;
   disparity_msg.max_disparity = 128.0;
+  
+  disparity_msg.delta_d = 1.0;
 
   disparity_pub_.publish(disparity_msg);
 }
