@@ -30,20 +30,17 @@ void SgmGpuNodelet::onInit()
   disparity_pub_ = private_node_handle.advertise<stereo_msgs::DisparityImage>("disparity", 1);
 
   // Subscribe left and right Image topic
-  // TODO: Set queue size correctly
   std::string left_base_topic = node_handle.resolveName("left_image");
   std::string right_base_topic = node_handle.resolveName("right_image");
   left_image_sub_.subscribe(*image_transport_, left_base_topic, 10);
   right_image_sub_.subscribe(*image_transport_, right_base_topic, 10);
 
   // Find CameraInfo topic from corresponded Image topic and subscribe it
-  // TODO: Set queue size correctly
   std::string left_info_topic = image_transport::getCameraInfoTopic(left_base_topic);
   std::string right_info_topic = image_transport::getCameraInfoTopic(right_base_topic);
   left_info_sub_.subscribe(node_handle, left_info_topic, 10);
   right_info_sub_.subscribe(node_handle, right_info_topic, 10);
 
-  // TODO: Set queue size correctly
   stereo_synchronizer_.reset(new StereoSynchronizer(left_image_sub_, right_image_sub_, left_info_sub_, right_info_sub_, 10));
   stereo_synchronizer_->registerCallback(&SgmGpuNodelet::stereoCallback, this);
 
