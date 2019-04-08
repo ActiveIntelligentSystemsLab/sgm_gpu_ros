@@ -49,6 +49,9 @@ void SgmGpuNodelet::onInit()
 
 void SgmGpuNodelet::stereoCallback(const sensor_msgs::ImageConstPtr &left_image_msg, const sensor_msgs::ImageConstPtr &right_image_msg, const sensor_msgs::CameraInfoConstPtr &left_info_msg, const sensor_msgs::CameraInfoConstPtr &right_info_msg)
 {
+  if (disparity_pub_.getNumSubscribers() == 0)
+    return;
+
   // Even if image has 3 channels(RGB), cv_bridge convert it to greyscale
   cv_bridge::CvImagePtr cv_left_image = cv_bridge::toCvCopy(left_image_msg, sensor_msgs::image_encodings::MONO8);
   cv_bridge::CvImagePtr cv_right_image = cv_bridge::toCvCopy(right_image_msg, sensor_msgs::image_encodings::MONO8);
