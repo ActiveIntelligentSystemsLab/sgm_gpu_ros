@@ -43,4 +43,4 @@ public:
   virtual void onInit();
 };
 
-} // namespace sgm_gpu_wrapper
+} // namespace sgm_gpu_ros_wrapper

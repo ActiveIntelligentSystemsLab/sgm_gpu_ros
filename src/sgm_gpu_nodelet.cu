@@ -94,4 +94,4 @@ void SgmGpuNodelet::stereoCallback(const sensor_msgs::ImageConstPtr &left_image_
   disparity_pub_.publish(disparity_msg);
 }
 
-}
+} // namespace sgm_gpu_ros_wrapper
