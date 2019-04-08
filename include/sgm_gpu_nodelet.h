@@ -27,11 +27,13 @@ private:
 
   /**
    * @brief Parameter used in SGM algorithm
+   * See SGM paper.
    */
   uint8_t sgm_p1_;
 
   /**
    * @brief Paramter used in SGM algorithm
+   * See SGM paper.
    */
   uint8_t sgm_p2_;
 
