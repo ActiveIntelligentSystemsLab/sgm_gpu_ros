@@ -26,7 +26,7 @@ void SgmGpuNodelet::onInit()
 
   image_transport_.reset(new image_transport::ImageTransport(node_handle));
 
-  disparity_pub_ = private_node_handle.advertise<stereo_msgs::DisparityImage>("disparity_image", 1);
+  disparity_pub_ = private_node_handle.advertise<stereo_msgs::DisparityImage>("disparity", 1);
 
   // Subscribe left and right Image topic
   // TODO: Set queue size correctly
