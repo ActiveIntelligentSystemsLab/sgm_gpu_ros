@@ -27,7 +27,7 @@ $ catkin_make
 $ rosrun nodelet nodelet standalone sgm_gpu_ros_wrapper/sgm_gpu_nodelet left_image:=<YourLeftImageTopic> right_image:=<YourRightImageTopic>
 ```
 
-You can see result by [stereo_view](http://wiki.ros.org/image_view#image_view.2BAC8-diamondback.disparity_view) .
+You can see result by [disparity_view](http://wiki.ros.org/image_view#image_view.2BAC8-diamondback.disparity_view) .
 
 ## sgm_gpu_ros_wrapper/sgm_gpu_nodelet
 
@@ -60,15 +60,19 @@ A nodelet calculate disparity from stereo image topic.
 
 ### Parameters
 
-- `~p1`
+- `~p1` (int)
 
   Parameter used in SGM algorithm.
   See [SGM on GPU papar](https://www.sciencedirect.com/science/article/pii/S1877050916306561) and [SGM paper](https://ieeexplore.ieee.org/document/4359315) .
 
-- `~p2`
+  Default value is `6` from [SGM on GPU](https://github.com/dhernandez0/sgm) .
+
+- `~p2` (int) 
 
   Parameter used in SGM algorithm.
   See [SGM on GPU papar](https://www.sciencedirect.com/science/article/pii/S1877050916306561) and [SGM paper](https://ieeexplore.ieee.org/document/4359315) .
+
+  Default value is `96` from [SGM on GPU](https://github.com/dhernandez0/sgm) .
 
 ### Limitations
 
