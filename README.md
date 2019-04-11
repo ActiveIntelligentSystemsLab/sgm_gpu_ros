@@ -60,15 +60,19 @@ A nodelet calculate disparity from stereo image topic.
 
 ### Parameters
 
-- `~p1`
+- `~p1` (int)
 
   Parameter used in SGM algorithm.
   See [SGM on GPU papar](https://www.sciencedirect.com/science/article/pii/S1877050916306561) and [SGM paper](https://ieeexplore.ieee.org/document/4359315) .
 
-- `~p2`
+  Default value is `6` from [SGM on GPU](https://github.com/dhernandez0/sgm) .
+
+- `~p2` (int) 
 
   Parameter used in SGM algorithm.
   See [SGM on GPU papar](https://www.sciencedirect.com/science/article/pii/S1877050916306561) and [SGM paper](https://ieeexplore.ieee.org/document/4359315) .
+
+  Default value is `96` from [SGM on GPU](https://github.com/dhernandez0/sgm) .
 
 ### Limitations
 
