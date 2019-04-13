@@ -4,6 +4,10 @@
 
 The nodelet just wraps [SGM on GPU](https://github.com/dhernandez0/sgm) so please check specification and limitation of it.
 
+Sample visualized result using 8 path directions.
+
+![DIS Flow](images/sgm_sample.png)
+
 ## Prerequisite
 
 - [ROS Melodic Morenia](http://wiki.ros.org/melodic)
