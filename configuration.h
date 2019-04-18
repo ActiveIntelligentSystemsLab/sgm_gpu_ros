@@ -38,7 +38,6 @@
 #define LEFT			(CENSUS_WIDTH-1)/2
 
 typedef uint32_t cost_t;
-#define MAX_COST		30
 
 #define BLOCK_SIZE					256
 #define COSTAGG_BLOCKSIZE			GPU_THREADS_PER_BLOCK
