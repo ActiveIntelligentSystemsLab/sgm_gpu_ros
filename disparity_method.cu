@@ -86,12 +86,10 @@ cv::Mat compute_disparity_method(cv::Mat left, cv::Mat right, float *elapsed_tim
 		CUDA_CHECK_RETURN(cudaMalloc((void **)&d_L1, sizeof(uint8_t)*size_cube_l));
 		CUDA_CHECK_RETURN(cudaMalloc((void **)&d_L2, sizeof(uint8_t)*size_cube_l));
 		CUDA_CHECK_RETURN(cudaMalloc((void **)&d_L3, sizeof(uint8_t)*size_cube_l));
-#if PATH_AGGREGATION == 8
 		CUDA_CHECK_RETURN(cudaMalloc((void **)&d_L4, sizeof(uint8_t)*size_cube_l));
 		CUDA_CHECK_RETURN(cudaMalloc((void **)&d_L5, sizeof(uint8_t)*size_cube_l));
 		CUDA_CHECK_RETURN(cudaMalloc((void **)&d_L6, sizeof(uint8_t)*size_cube_l));
 		CUDA_CHECK_RETURN(cudaMalloc((void **)&d_L7, sizeof(uint8_t)*size_cube_l));
-#endif
 
 		CUDA_CHECK_RETURN(cudaMalloc((void **)&d_disparity, sizeof(uint8_t)*size));
 		CUDA_CHECK_RETURN(cudaMalloc((void **)&d_disparity_filtered_uchar, sizeof(uint8_t)*size));
@@ -165,8 +163,6 @@ cv::Mat compute_disparity_method(cv::Mat left, cv::Mat right, float *elapsed_tim
 		printf("Error: %s %d\n", cudaGetErrorString(err), err);
 		exit(-1);
 	}
-
-#if PATH_AGGREGATION == 8
 	CostAggregationKernelDiagonalDownUpLeftRight<<<(cols+PIXELS_PER_BLOCK-1)/PIXELS_PER_BLOCK, COSTAGG_BLOCKSIZE, 0, stream1>>>(d_cost, d_L4, p1, p2, rows, cols, d_transform0, d_transform1, d_disparity, d_L0, d_L1, d_L2, d_L3, d_L4, d_L5, d_L6);
 	err = cudaGetLastError();
 	if (err != cudaSuccess) {
@@ -192,7 +188,7 @@ cv::Mat compute_disparity_method(cv::Mat left, cv::Mat right, float *elapsed_tim
 		printf("Error: %s %d\n", cudaGetErrorString(err), err);
 		exit(-1);
 	}
-#endif
+
 	debug_log("Calling Median Filter");
 	MedianFilter3x3<<<(size+MAX_DISPARITY-1)/MAX_DISPARITY, MAX_DISPARITY, 0, stream1>>>(d_disparity, d_disparity_filtered_uchar, rows, cols);
 	err = cudaGetLastError();
@@ -223,12 +219,10 @@ static void free_memory() {
 	CUDA_CHECK_RETURN(cudaFree(d_L1));
 	CUDA_CHECK_RETURN(cudaFree(d_L2));
 	CUDA_CHECK_RETURN(cudaFree(d_L3));
-#if PATH_AGGREGATION == 8
 	CUDA_CHECK_RETURN(cudaFree(d_L4));
 	CUDA_CHECK_RETURN(cudaFree(d_L5));
 	CUDA_CHECK_RETURN(cudaFree(d_L6));
 	CUDA_CHECK_RETURN(cudaFree(d_L7));
-#endif
 	CUDA_CHECK_RETURN(cudaFree(d_disparity));
 	CUDA_CHECK_RETURN(cudaFree(d_disparity_filtered_uchar));
 	CUDA_CHECK_RETURN(cudaFree(d_cost));

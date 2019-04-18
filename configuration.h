@@ -26,7 +26,6 @@
 #define LOG						false
 #define WRITE_FILES				true
 
-#define PATH_AGGREGATION	4
 #define	MAX_DISPARITY		128
 #define CENSUS_WIDTH		9
 #define CENSUS_HEIGHT		7

@@ -106,10 +106,7 @@ int main(int argc, char *argv[]) {
 		std::cerr << "Due to implementation limitations MAX_DISPARITY must be 128" << std::endl;
 		return -1;
 	}
-	if(PATH_AGGREGATION != 4 && PATH_AGGREGATION != 8) {
-                std::cerr << "Due to implementation limitations PATH_AGGREGATION must be 4 or 8" << std::endl;
-                return -1;
-        }
+
 	const char* directory = argv[1];
 	uint8_t p1, p2;
 	p1 = atoi(argv[2]);

@@ -170,44 +170,32 @@ __device__ __forceinline__ void CostAggregationGenericIteration(int index, int i
 		const uint32_t L0_costs = *((uint32_t*) (d_L0+index));
 		const uint32_t L1_costs = *((uint32_t*) (d_L1+index));
 		const uint32_t L2_costs = *((uint32_t*) (d_L2+index));
-		#if PATH_AGGREGATION == 8
-			const uint32_t L3_costs = *((uint32_t*) (d_L3+index));
-			const uint32_t L4_costs = *((uint32_t*) (d_L4+index));
-			const uint32_t L5_costs = *((uint32_t*) (d_L5+index));
-			const uint32_t L6_costs = *((uint32_t*) (d_L6+index));
-		#endif
+		const uint32_t L3_costs = *((uint32_t*) (d_L3+index));
+		const uint32_t L4_costs = *((uint32_t*) (d_L4+index));
+		const uint32_t L5_costs = *((uint32_t*) (d_L5+index));
+		const uint32_t L6_costs = *((uint32_t*) (d_L6+index));
 
 		int l0_x, l0_y, l0_z, l0_w;
 		int l1_x, l1_y, l1_z, l1_w;
 		int l2_x, l2_y, l2_z, l2_w;
-		#if PATH_AGGREGATION == 8
-			int l3_x, l3_y, l3_z, l3_w;
-			int l4_x, l4_y, l4_z, l4_w;
-			int l5_x, l5_y, l5_z, l5_w;
-			int l6_x, l6_y, l6_z, l6_w;
-		#endif
-
+		int l3_x, l3_y, l3_z, l3_w;
+		int l4_x, l4_y, l4_z, l4_w;
+		int l5_x, l5_y, l5_z, l5_w;
+		int l6_x, l6_y, l6_z, l6_w;
+			
 		uint32_to_uchars(L0_costs, &l0_x, &l0_y, &l0_z, &l0_w);
 		uint32_to_uchars(L1_costs, &l1_x, &l1_y, &l1_z, &l1_w);
 		uint32_to_uchars(L2_costs, &l2_x, &l2_y, &l2_z, &l2_w);
-		#if PATH_AGGREGATION == 8
-			uint32_to_uchars(L3_costs, &l3_x, &l3_y, &l3_z, &l3_w);
-			uint32_to_uchars(L4_costs, &l4_x, &l4_y, &l4_z, &l4_w);
-			uint32_to_uchars(L5_costs, &l5_x, &l5_y, &l5_z, &l5_w);
-			uint32_to_uchars(L6_costs, &l6_x, &l6_y, &l6_z, &l6_w);
-		#endif
+		uint32_to_uchars(L3_costs, &l3_x, &l3_y, &l3_z, &l3_w);
+		uint32_to_uchars(L4_costs, &l4_x, &l4_y, &l4_z, &l4_w);
+		uint32_to_uchars(L5_costs, &l5_x, &l5_y, &l5_z, &l5_w);
+		uint32_to_uchars(L6_costs, &l6_x, &l6_y, &l6_z, &l6_w);
 
-		#if PATH_AGGREGATION == 8
-			const uint16_t val1 = l0_x + l1_x + l2_x + l3_x + l4_x + l5_x + l6_x + *old_value1;
-			const uint16_t val2 = l0_y + l1_y + l2_y + l3_y + l4_y + l5_y + l6_y + *old_value2;
-			const uint16_t val3 = l0_z + l1_z + l2_z + l3_z + l4_z + l5_z + l6_z + *old_value3;
-			const uint16_t val4 = l0_w + l1_w + l2_w + l3_w + l4_w + l5_w + l6_w + *old_value4;
-		#else
-			const uint16_t val1 = l0_x + l1_x + l2_x + *old_value1;
-			const uint16_t val2 = l0_y + l1_y + l2_y + *old_value2;
-			const uint16_t val3 = l0_z + l1_z + l2_z + *old_value3;
-			const uint16_t val4 = l0_w + l1_w + l2_w + *old_value4;
-		#endif
+		const uint16_t val1 = l0_x + l1_x + l2_x + l3_x + l4_x + l5_x + l6_x + *old_value1;
+		const uint16_t val2 = l0_y + l1_y + l2_y + l3_y + l4_y + l5_y + l6_y + *old_value2;
+		const uint16_t val3 = l0_z + l1_z + l2_z + l3_z + l4_z + l5_z + l6_z + *old_value3;
+		const uint16_t val4 = l0_w + l1_w + l2_w + l3_w + l4_w + l5_w + l6_w + *old_value4;
+
 		int min_idx1 = dis;
 		uint16_t min1 = val1;
 		if(val1 > val2) {
@@ -422,7 +410,7 @@ __global__ void CostAggregationKernelDiagonalUpDownRightLeft(uint8_t* d_cost, ui
 		const int col_copycost = cols-1;
 		const int max_iter = rows-1;
 		const bool recompute = false;
-		const bool join_dispcomputation = PATH_AGGREGATION == 8;
+		const bool join_dispcomputation = true;
 
 		CostAggregationDiagonalGeneric<add_index, T, DIR_UPDOWN, recompute, join_dispcomputation>(d_cost, d_L, P1, P2, initial_row, initial_col, max_iter, col_nomin, col_copycost, cols, d_transform0, d_transform1, d_disparity, d_L0, d_L1, d_L2, d_L3, d_L4, d_L5, d_L6);
 	}
@@ -489,7 +477,7 @@ __global__ void CostAggregationKernelDownToUp(uint8_t* d_cost, uint8_t *d_L, con
 		const int max_iter = rows-1;
 		const int add_col = 0;
 		const bool recompute = false;
-		const bool join_dispcomputation = PATH_AGGREGATION == 4;
+		const bool join_dispcomputation = false;
 
 		CostAggregationGeneric<T, add_col, DIR_DOWNUP, recompute, join_dispcomputation>(d_cost, d_L, P1, P2, initial_row, initial_col, max_iter, cols, add_index, d_transform0, d_transform1, add_imindex, d_disparity, d_L0, d_L1, d_L2, d_L3, d_L4, d_L5, d_L6);
 	}
