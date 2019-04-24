@@ -85,7 +85,7 @@ void SgmGpuNodelet::stereoCallback(const sensor_msgs::ImageConstPtr &left_image_
   }
 
   float elapsed_time_ms;
-  cv::Mat disparity_8u = compute_disparity_method(cv_left_image->image, cv_right_image->image, &elapsed_time_ms, NULL, NULL);
+  cv::Mat disparity_8u = compute_disparity_method(cv_left_image->image, cv_right_image->image, &elapsed_time_ms);
 
   NODELET_INFO("Elapsed time: %f [ms]", elapsed_time_ms);
 
