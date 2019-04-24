@@ -18,10 +18,7 @@ Visualized result using 8 path directions:
 ```
 $ cd <YourCatkinWorkspace>/src
 $ git clone https://github.com/ActiveIntelligentSystemsLab/sgm_gpu_ros_wrapper.git
-$ cd sgm_gpu_ros_wrapper
-$ git submodule init
-$ git submodule update
-$ cd ../../
+$ cd ..
 $ catkin_make
 ```
 
