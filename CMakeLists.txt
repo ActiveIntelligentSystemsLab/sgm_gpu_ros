@@ -28,17 +28,17 @@ catkin_package()
 
 include_directories(
   include
-  sgm
+  include/sgm
   ${catkin_INCLUDE_DIRS}
 )
 
 add_library(${PROJECT_NAME}
   src/sgm_gpu_nodelet.cu
-  sgm/costs.cu
-  sgm/debug.cu
-  sgm/disparity_method.cu
-  sgm/hamming_cost.cu
-  sgm/median_filter.cu
+  src/sgm/costs.cu
+  src/sgm/debug.cu
+  src/sgm/disparity_method.cu
+  src/sgm/hamming_cost.cu
+  src/sgm/median_filter.cu
 )
 target_link_libraries(${PROJECT_NAME}
   ${catkin_LIBRARIES}
