@@ -4,7 +4,7 @@
 
 The nodelet just wraps [SGM on GPU](https://github.com/dhernandez0/sgm) so please check specification and limitation of it.
 
-Sample visualized result using 8 path directions.
+Visualized result using 8 path directions:
 
 ![DIS Flow](images/sgm_sample.png)
 
@@ -31,7 +31,7 @@ $ catkin_make
 $ rosrun nodelet nodelet standalone sgm_gpu_ros_wrapper/sgm_gpu_nodelet left_image:=<YourLeftImageTopic> right_image:=<YourRightImageTopic>
 ```
 
-You can see result by [disparity_view](http://wiki.ros.org/image_view#image_view.2BAC8-diamondback.disparity_view) .
+You can see result by [disparity_visualize](https://github.com/ActiveIntelligentSystemsLab/disparity_visualize) .
 
 ## sgm_gpu_ros_wrapper/sgm_gpu_nodelet
 
