@@ -57,7 +57,7 @@ void init_disparity_method(const uint8_t _p1, const uint8_t _p2) {
     cols = 0;
 }
 
-cv::Mat compute_disparity_method(cv::Mat left, cv::Mat right, float *elapsed_time_ms, const char* directory, const char* fname) {
+cv::Mat compute_disparity_method(cv::Mat left, cv::Mat right, float *elapsed_time_ms) {
 	if(cols != left.cols || rows != left.rows) {
 		debug_log("WARNING: cols or rows are different");
 		if(!first_alloc) {
