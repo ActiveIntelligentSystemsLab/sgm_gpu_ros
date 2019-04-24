@@ -15,7 +15,7 @@ Visualized result:
 
 ```
 $ cd <YourCatkinWorkspace>/src
-$ git clone https://github.com/ActiveIntelligentSystemsLab/sgm_gpu_ros_wrapper.git
+$ git clone https://github.com/ActiveIntelligentSystemsLab/sgm_gpu_ros.git
 $ cd ..
 $ catkin_make
 ```
