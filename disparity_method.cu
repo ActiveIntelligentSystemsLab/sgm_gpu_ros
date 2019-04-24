@@ -29,7 +29,6 @@ static uint8_t *d_cost;
 static uint8_t *d_disparity;
 static uint8_t *d_disparity_filtered_uchar;
 static uint8_t *h_disparity;
-static uint16_t *d_S;
 static uint8_t *d_L0;
 static uint8_t *d_L1;
 static uint8_t *d_L2;
@@ -81,7 +80,6 @@ cv::Mat compute_disparity_method(cv::Mat left, cv::Mat right, float *elapsed_tim
 
 		CUDA_CHECK_RETURN(cudaMalloc((void **)&d_im1, sizeof(uint8_t)*size));
 
-		CUDA_CHECK_RETURN(cudaMalloc((void **)&d_S, sizeof(uint16_t)*size_cube_l));
 		CUDA_CHECK_RETURN(cudaMalloc((void **)&d_L0, sizeof(uint8_t)*size_cube_l));
 		CUDA_CHECK_RETURN(cudaMalloc((void **)&d_L1, sizeof(uint8_t)*size_cube_l));
 		CUDA_CHECK_RETURN(cudaMalloc((void **)&d_L2, sizeof(uint8_t)*size_cube_l));
