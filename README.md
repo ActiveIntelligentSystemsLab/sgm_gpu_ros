@@ -1,12 +1,10 @@
-# A ROS wrapper of Semi-Global Matching on the GPU
+# A ROS package of Semi-Global Matching on the GPU
 
-`sgm_gpu_ros_wrapper` is a ROS package which contains a nodelet using [Semi-Global Matching on the GPU by D. Hernandez-Juarez](https://github.com/dhernandez0/sgm) .
+`sgm_gpu` is a ROS package which contains a nodelet based on [Semi-Global Matching on the GPU by D. Hernandez-Juarez](https://github.com/dhernandez0/sgm) .
 
-The nodelet just wraps [SGM on GPU](https://github.com/dhernandez0/sgm) so please check specification and limitation of it.
+Visualized result:
 
-Visualized result using 8 path directions:
-
-![DIS Flow](images/sgm_sample.png)
+![Result](images/sgm_sample.png)
 
 ## Prerequisite
 
@@ -25,12 +23,12 @@ $ catkin_make
 ## Run 
 
 ```
-$ rosrun nodelet nodelet standalone sgm_gpu_ros_wrapper/sgm_gpu_nodelet left_image:=<YourLeftImageTopic> right_image:=<YourRightImageTopic>
+$ rosrun nodelet nodelet standalone sgm_gpu/sgm_gpu_nodelet left_image:=<YourLeftImageTopic> right_image:=<YourRightImageTopic>
 ```
 
 You can see result by [disparity_visualize](https://github.com/ActiveIntelligentSystemsLab/disparity_visualize) .
 
-## sgm_gpu_ros_wrapper/sgm_gpu_nodelet
+## sgm_gpu/sgm_gpu_nodelet
 
 A nodelet calculate disparity from stereo image topic.
 
@@ -77,9 +75,5 @@ A nodelet calculate disparity from stereo image topic.
 
 ### Limitations
 
-See [GitHub page of SGM on GPU](https://github.com/dhernandez0/sgm) .
-
-### How to change number of path direction
-
-Change [PATH_AGGREGATION in sgm/configuration.h](https://github.com/dhernandez0/sgm/blob/master/configuration.h#L29) and rebuild.
-Available value is `4` or `8` .
+- Disparity range is `[0, 127]`
+- Image width and height must be a divisible by 4

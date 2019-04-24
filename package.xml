@@ -2,9 +2,9 @@
 <?xml-model href="http://download.ros.org/schema/package_format2.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?> 
 
 <package format="2">
-  <name>sgm_gpu_ros_wrapper</name>
+  <name>sgm_gpu</name>
   <version>0.0.0</version>
-  <description>A ROS wrapper of Semi-Global Matching on the GPU</description>
+  <description>A ROS package of Semi-Global Matching on the GPU</description>
   <maintainer email="fujimoto@aisl.cs.tut.ac.jp">Hironori Fujimoto</maintainer>
   <license>GPL3</license>
 

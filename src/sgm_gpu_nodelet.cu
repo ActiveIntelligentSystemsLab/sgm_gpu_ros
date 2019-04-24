@@ -17,7 +17,7 @@
 #include "sgm_gpu_nodelet.h"
 
 #include <pluginlib/class_list_macros.h>
-PLUGINLIB_EXPORT_CLASS(sgm_gpu_ros_wrapper::SgmGpuNodelet, nodelet::Nodelet);
+PLUGINLIB_EXPORT_CLASS(sgm_gpu::SgmGpuNodelet, nodelet::Nodelet);
 
 #include <cv_bridge/cv_bridge.h>
 #include <image_geometry/stereo_camera_model.h>
@@ -29,7 +29,7 @@ PLUGINLIB_EXPORT_CLASS(sgm_gpu_ros_wrapper::SgmGpuNodelet, nodelet::Nodelet);
 
 #include "disparity_method.h"
 
-namespace sgm_gpu_ros_wrapper {
+namespace sgm_gpu {
 
 void SgmGpuNodelet::onInit()
 {
@@ -111,4 +111,4 @@ void SgmGpuNodelet::stereoCallback(const sensor_msgs::ImageConstPtr &left_image_
   disparity_pub_.publish(disparity_msg);
 }
 
-} // namespace sgm_gpu_ros_wrapper
+} // namespace sgm_gpu

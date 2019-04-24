@@ -1,6 +1,6 @@
 # CMake>=3.8 supports CUDA C++ as intrinsically supported language
 cmake_minimum_required(VERSION 3.8 FATAL_ERROR)
-project(sgm_gpu_ros_wrapper CUDA CXX)
+project(sgm_gpu CUDA CXX)
 
 find_package(catkin REQUIRED COMPONENTS
   cv_bridge

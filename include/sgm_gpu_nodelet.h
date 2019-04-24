@@ -24,7 +24,7 @@
 
 #include <memory>
 
-namespace sgm_gpu_ros_wrapper {
+namespace sgm_gpu {
 
 class SgmGpuNodelet : public nodelet::Nodelet
 {
@@ -59,4 +59,4 @@ public:
   virtual void onInit();
 };
 
-} // namespace sgm_gpu_ros_wrapper
+} // namespace sgm_gpu
