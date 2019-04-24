@@ -17,7 +17,7 @@ Visualized result using 8 path directions:
 
 ```
 $ cd <YourCatkinWorkspace>/src
-$ git clone https://aisl-serv6.aisl.cs.tut.ac.jp:20443/fujimoto/sgm_gpu_ros_wrapper.git
+$ git clone https://github.com/ActiveIntelligentSystemsLab/sgm_gpu_ros_wrapper.git
 $ cd sgm_gpu_ros_wrapper
 $ git submodule init
 $ git submodule update
