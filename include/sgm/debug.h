@@ -5,7 +5,7 @@
   it under the terms of the GNU General Public License as published by
   the Free Software Foundation, either version 3 of the License, or
   (at your option) any later version.
- 
+
   This program is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -23,13 +23,13 @@
 
 template<typename T>
 void write_file(const char* fname, const T *data, const int size) {
-	FILE* fp = fopen(fname, "wb");
-	if (fp == NULL) {
-		std::cerr << "Couldn't write transform file" << std::endl;
-		exit(-1);
-	}
-	fwrite (data, sizeof(T), size, fp);
-	fclose(fp);
+  FILE* fp = fopen(fname, "wb");
+  if (fp == NULL) {
+    std::cerr << "Couldn't write transform file" << std::endl;
+    exit(-1);
+  }
+  fwrite (data, sizeof(T), size, fp);
+  fclose(fp);
 }
 
 void debug_log(const char *str);
