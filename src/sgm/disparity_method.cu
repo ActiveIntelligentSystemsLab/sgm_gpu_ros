@@ -49,8 +49,8 @@ void init_disparity_method(const uint8_t _p1, const uint8_t _p2) {
   first_alloc = true;
   p1 = _p1;
   p2 = _p2;
-    rows = 0;
-    cols = 0;
+  rows = 0;
+  cols = 0;
 }
 
 cv::Mat compute_disparity_method(cv::Mat left, cv::Mat right, float *elapsed_time_ms) {
