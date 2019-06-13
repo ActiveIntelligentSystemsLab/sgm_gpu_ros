@@ -14,7 +14,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ***********************************************************************/
 
-#include "right_disparity.h"
+#include "left_right_consistency.h"
 #include "configuration.h"
 
 __global__ void ChooseRightDisparity(uint8_t *right_disparity, const uint16_t *smoothed_cost, const uint32_t rows, const uint32_t cols) {
@@ -22,18 +22,12 @@ __global__ void ChooseRightDisparity(uint8_t *right_disparity, const uint16_t *s
   const int y = blockIdx.y*blockDim.y+threadIdx.y;
   
   int min_cost_disparity = 0;
-  uint16_t min_cost = smoothed_cost[y*cols*MAX_DISPARITY + x*MAX_DISPARITY + min_cost_disparity];
+  uint16_t min_cost = smoothed_cost[(y*cols + x)*MAX_DISPARITY + min_cost_disparity];
   
-  // Prevent overflow of index
-  /*
-  int limit_disparity = MAX_DISPARITY;
-  if (p_x + MAX_DISPARITY >= rows) {
-    limit_disparity = p_x + MAX_DISPARITY - rows - 1;
-  }
-  */
-  
-  for (int d = 1; x + d < rows; d++) {
-    uint16_t tmp_cost = smoothed_cost[y*cols*MAX_DISPARITY + (x+d)*MAX_DISPARITY + d];
+  for (int d = 1; d < MAX_DISPARITY; d++) {
+    if (x + d >= cols)
+      break;
+    uint16_t tmp_cost = smoothed_cost[(y*cols + (x+d))*MAX_DISPARITY + d];
     if (tmp_cost < min_cost) {
       min_cost = tmp_cost;
       min_cost_disparity = d;
@@ -41,4 +35,18 @@ __global__ void ChooseRightDisparity(uint8_t *right_disparity, const uint16_t *s
   }
   
   right_disparity[y*cols+x] = min_cost_disparity;
+}
+
+__global__ void LeftRightConsistenchCheck(uint8_t* disparity, const uint8_t* disparity_right, uint32_t rows, uint32_t cols)
+{
+  const int x = blockIdx.x*blockDim.x+threadIdx.x;
+  const int y = blockIdx.y*blockDim.y+threadIdx.y;
+  const int x_right = x - disparity[y*cols + x];
+  
+  if (x_right < 0) {
+    disparity[y*cols + x] = 255;
+  }
+  else if (disparity[y*cols + x] - disparity_right[y*cols + x_right] != 0) {
+    disparity[y*cols + x] = 255;
+  }
 }

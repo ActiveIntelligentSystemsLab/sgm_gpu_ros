@@ -14,12 +14,13 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ***********************************************************************/
 
-#ifndef RIGHT_DISPARITY_H_
-#define RIGHT_DISPARITY_H_
+#ifndef LEFT_RIGHT_CONSISTENCY_H_
+#define LEFT_RIGHT_CONSISTENCY_H_
 
 #include <stdint.h>
 
 __global__ void ChooseRightDisparity(uint8_t *right_disparity, const uint16_t *smoothed_cost, const uint32_t rows, const uint32_t cols);
+__global__ void LeftRightConsistenchCheck(uint8_t *disparity, const uint8_t *disparity_right, const uint32_t rows, const uint32_t cols);
 
-#endif /* RIGHT_DISPARITY_H_ */
+#endif /* LEFT_RIGHT_CONSISTENCY_H_ */
 

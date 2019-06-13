@@ -22,6 +22,7 @@
 #include <nodelet/nodelet.h>
 #include <sensor_msgs/Image.h>
 
+#include <opencv2/opencv.hpp>
 #include <memory>
 
 namespace sgm_gpu {
@@ -52,7 +53,8 @@ private:
    * See SGM paper.
    */
   uint8_t sgm_p2_;
-
+  
+  void excludeInconsistentPixel(cv::Mat* disparity, const cv::Mat& inconsistency_map);
   void stereoCallback(const sensor_msgs::ImageConstPtr &left_image_msg, const sensor_msgs::ImageConstPtr &right_image_msg, const sensor_msgs::CameraInfoConstPtr &left_info_msg, const sensor_msgs::CameraInfoConstPtr &right_info_msg);
 
 public:

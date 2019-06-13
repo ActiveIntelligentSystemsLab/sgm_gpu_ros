@@ -195,14 +195,28 @@ void compute_disparity_method(cv::Mat left, cv::Mat right, cv::Mat* disparity, f
 
   debug_log("Calling Median Filter");
   MedianFilter3x3<<<(size+MAX_DISPARITY-1)/MAX_DISPARITY, MAX_DISPARITY, 0, stream1>>>(d_disparity, d_disparity_filtered_uchar, rows, cols);
+  err = cudaGetLastError();
+  if (err != cudaSuccess) {
+    printf("Error: %s %d\n", cudaGetErrorString(err), err);
+    exit(-1);
+  }
   MedianFilter3x3<<<(size+MAX_DISPARITY-1)/MAX_DISPARITY, MAX_DISPARITY, 0, stream1>>>(d_disparity_right, d_disparity_right_filtered_uchar, rows, cols);
   err = cudaGetLastError();
   if (err != cudaSuccess) {
     printf("Error: %s %d\n", cudaGetErrorString(err), err);
     exit(-1);
   }
-
+  
+  debug_log("Check left-right consistency");
+  LeftRightConsistenchCheck<<<grid_size, block_size, 0, stream1>>>(d_disparity_filtered_uchar, d_disparity_right_filtered_uchar, rows, cols);
+  err = cudaGetLastError();
+  if (err != cudaSuccess) {
+    printf("Error: %s %d\n", cudaGetErrorString(err), err);
+    exit(-1);
+  }
+  
   cudaEventRecord(stop, 0);
+  
   CUDA_CHECK_RETURN(cudaDeviceSynchronize());
   cudaEventElapsedTime(elapsed_time_ms, start, stop);
   cudaEventDestroy(start);

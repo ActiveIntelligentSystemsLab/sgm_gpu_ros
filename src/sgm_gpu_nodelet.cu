@@ -25,8 +25,6 @@ PLUGINLIB_EXPORT_CLASS(sgm_gpu::SgmGpuNodelet, nodelet::Nodelet);
 #include <sensor_msgs/image_encodings.h>
 #include <stereo_msgs/DisparityImage.h>
 
-#include <opencv2/opencv.hpp>
-
 #include "disparity_method.h"
 
 namespace sgm_gpu {
