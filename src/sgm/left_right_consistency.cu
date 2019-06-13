@@ -45,8 +45,12 @@ __global__ void LeftRightConsistenchCheck(uint8_t* disparity, const uint8_t* dis
   
   if (x_right < 0) {
     disparity[y*cols + x] = 255;
+    return;
   }
-  else if (disparity[y*cols + x] - disparity_right[y*cols + x_right] != 0) {
+  
+  int diff = disparity[y*cols + x] - disparity_right[y*cols + x_right];
+  diff = diff < 0 ? diff * -1 : diff;
+  if (diff > 1) {
     disparity[y*cols + x] = 255;
   }
 }
