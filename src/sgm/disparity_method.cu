@@ -56,7 +56,7 @@ void init_disparity_method(const uint8_t _p1, const uint8_t _p2) {
   cols = 0;
 }
 
-void compute_disparity_method(cv::Mat left, cv::Mat right, cv::Mat* disparity, float *elapsed_time_ms) {
+void compute_disparity_method(cv::Mat left, cv::Mat right, cv::Mat* disparity, float *elapsed_time_ms, bool check_consistency) {
   if(cols != left.cols || rows != left.rows) {
     debug_log("WARNING: cols or rows are different");
     if(!first_alloc) {
@@ -189,9 +189,6 @@ void compute_disparity_method(cv::Mat left, cv::Mat right, cv::Mat* disparity, f
     printf("Error: %s %d\n", cudaGetErrorString(err), err);
     exit(-1);
   }
-  
-  debug_log("Choose right disparity");
-  ChooseRightDisparity<<<grid_size, block_size, 0, stream1>>>(d_disparity_right, d_s, rows, cols);
 
   debug_log("Calling Median Filter");
   MedianFilter3x3<<<(size+MAX_DISPARITY-1)/MAX_DISPARITY, MAX_DISPARITY, 0, stream1>>>(d_disparity, d_disparity_filtered_uchar, rows, cols);
@@ -200,19 +197,30 @@ void compute_disparity_method(cv::Mat left, cv::Mat right, cv::Mat* disparity, f
     printf("Error: %s %d\n", cudaGetErrorString(err), err);
     exit(-1);
   }
-  MedianFilter3x3<<<(size+MAX_DISPARITY-1)/MAX_DISPARITY, MAX_DISPARITY, 0, stream1>>>(d_disparity_right, d_disparity_right_filtered_uchar, rows, cols);
-  err = cudaGetLastError();
-  if (err != cudaSuccess) {
-    printf("Error: %s %d\n", cudaGetErrorString(err), err);
-    exit(-1);
-  }
   
-  debug_log("Check left-right consistency");
-  LeftRightConsistenchCheck<<<grid_size, block_size, 0, stream1>>>(d_disparity_filtered_uchar, d_disparity_right_filtered_uchar, rows, cols);
-  err = cudaGetLastError();
-  if (err != cudaSuccess) {
-    printf("Error: %s %d\n", cudaGetErrorString(err), err);
-    exit(-1);
+  if (check_consistency) {
+    debug_log("Choose right disparity");
+    ChooseRightDisparity<<<grid_size, block_size, 0, stream1>>>(d_disparity_right, d_s, rows, cols);
+    err = cudaGetLastError();
+    if (err != cudaSuccess) {
+      printf("Error: %s %d\n", cudaGetErrorString(err), err);
+      exit(-1);
+    }
+    
+    MedianFilter3x3<<<(size+MAX_DISPARITY-1)/MAX_DISPARITY, MAX_DISPARITY, 0, stream1>>>(d_disparity_right, d_disparity_right_filtered_uchar, rows, cols);
+    err = cudaGetLastError();
+    if (err != cudaSuccess) {
+      printf("Error: %s %d\n", cudaGetErrorString(err), err);
+      exit(-1);
+    }
+    
+    debug_log("Check left-right consistency");
+    LeftRightConsistenchCheck<<<grid_size, block_size, 0, stream1>>>(d_disparity_filtered_uchar, d_disparity_right_filtered_uchar, rows, cols);
+    err = cudaGetLastError();
+    if (err != cudaSuccess) {
+      printf("Error: %s %d\n", cudaGetErrorString(err), err);
+      exit(-1);
+    }
   }
   
   cudaEventRecord(stop, 0);

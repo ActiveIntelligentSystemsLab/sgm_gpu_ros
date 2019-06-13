@@ -73,6 +73,12 @@ A nodelet calculate disparity from stereo image topic.
 
   Default value is `96` from [SGM on GPU](https://github.com/dhernandez0/sgm) .
 
+- `~check_consistency` (bool)
+
+  Check left-right consistency if true.
+
+  Default value is `true`.
+
 ### Limitations
 
 - Disparity range is `[0, 127]`

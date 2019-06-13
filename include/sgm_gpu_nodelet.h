@@ -54,7 +54,11 @@ private:
    */
   uint8_t sgm_p2_;
   
-  void excludeInconsistentPixel(cv::Mat* disparity, const cv::Mat& inconsistency_map);
+  /**
+   * @brief Check left-right consistency if true
+   */
+  bool check_consistency_;
+  
   void stereoCallback(const sensor_msgs::ImageConstPtr &left_image_msg, const sensor_msgs::ImageConstPtr &right_image_msg, const sensor_msgs::CameraInfoConstPtr &left_info_msg, const sensor_msgs::CameraInfoConstPtr &right_info_msg);
 
 public:

@@ -38,6 +38,8 @@ void SgmGpuNodelet::onInit()
   // Default value from https://github.com/dhernandez0/sgm/blob/master/README.md
   sgm_p1_ = static_cast<uint8_t>(private_node_handle.param("p1", 6));
   sgm_p2_ = static_cast<uint8_t>(private_node_handle.param("p2", 96));
+  
+  check_consistency_ = private_node_handle.param("check_consistency", true);
 
   image_transport_.reset(new image_transport::ImageTransport(node_handle));
 
@@ -84,7 +86,7 @@ void SgmGpuNodelet::stereoCallback(const sensor_msgs::ImageConstPtr &left_image_
 
   float elapsed_time_ms;
   cv::Mat disparity_8u;
-  compute_disparity_method(cv_left_image->image, cv_right_image->image, &disparity_8u, &elapsed_time_ms);
+  compute_disparity_method(cv_left_image->image, cv_right_image->image, &disparity_8u, &elapsed_time_ms, check_consistency_);
 
   NODELET_INFO("Elapsed time: %f [ms]", elapsed_time_ms);
 
