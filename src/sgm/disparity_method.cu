@@ -25,6 +25,8 @@ static uint8_t *d_cost;
 static uint8_t *d_disparity;
 static uint8_t *d_disparity_filtered_uchar;
 static uint8_t *h_disparity;
+static uint8_t *d_disparity_right;
+static uint8_t *d_disparity_right_filtered_uchar;
 static uint8_t *d_L0;
 static uint8_t *d_L1;
 static uint8_t *d_L2;
@@ -54,7 +56,7 @@ void init_disparity_method(const uint8_t _p1, const uint8_t _p2) {
   cols = 0;
 }
 
-cv::Mat compute_disparity_method(cv::Mat left, cv::Mat right, float *elapsed_time_ms) {
+void compute_disparity_method(cv::Mat left, cv::Mat right, cv::Mat* disparity, float *elapsed_time_ms) {
   if(cols != left.cols || rows != left.rows) {
     debug_log("WARNING: cols or rows are different");
     if(!first_alloc) {
@@ -91,6 +93,8 @@ cv::Mat compute_disparity_method(cv::Mat left, cv::Mat right, float *elapsed_tim
     CUDA_CHECK_RETURN(cudaMalloc((void **)&d_disparity, sizeof(uint8_t)*size));
     CUDA_CHECK_RETURN(cudaMalloc((void **)&d_disparity_filtered_uchar, sizeof(uint8_t)*size));
     h_disparity = new uint8_t[size];
+    CUDA_CHECK_RETURN(cudaMalloc((void **)&d_disparity_right, sizeof(uint8_t)*size));
+    CUDA_CHECK_RETURN(cudaMalloc((void **)&d_disparity_right_filtered_uchar, sizeof(uint8_t)*size));
   }
   debug_log("Copying images to the GPU");
   CUDA_CHECK_RETURN(cudaMemcpyAsync(d_im0, left.ptr<uint8_t>(), sizeof(uint8_t)*size, cudaMemcpyHostToDevice, stream1));
@@ -185,9 +189,13 @@ cv::Mat compute_disparity_method(cv::Mat left, cv::Mat right, float *elapsed_tim
     printf("Error: %s %d\n", cudaGetErrorString(err), err);
     exit(-1);
   }
+  
+  debug_log("Choose right disparity");
+  ChooseRightDisparity<<<grid_size, block_size, 0, stream1>>>(d_disparity_right, d_s, rows, cols);
 
   debug_log("Calling Median Filter");
   MedianFilter3x3<<<(size+MAX_DISPARITY-1)/MAX_DISPARITY, MAX_DISPARITY, 0, stream1>>>(d_disparity, d_disparity_filtered_uchar, rows, cols);
+  MedianFilter3x3<<<(size+MAX_DISPARITY-1)/MAX_DISPARITY, MAX_DISPARITY, 0, stream1>>>(d_disparity_right, d_disparity_right_filtered_uchar, rows, cols);
   err = cudaGetLastError();
   if (err != cudaSuccess) {
     printf("Error: %s %d\n", cudaGetErrorString(err), err);
@@ -203,8 +211,7 @@ cv::Mat compute_disparity_method(cv::Mat left, cv::Mat right, float *elapsed_tim
   debug_log("Copying final disparity to CPU");
   CUDA_CHECK_RETURN(cudaMemcpy(h_disparity, d_disparity_filtered_uchar, sizeof(uint8_t)*size, cudaMemcpyDeviceToHost));
 
-  cv::Mat disparity(rows, cols, CV_8UC1, h_disparity);
-  return disparity;
+  *disparity = cv::Mat(rows, cols, CV_8UC1, h_disparity);
 }
 
 static void free_memory() {
@@ -222,7 +229,10 @@ static void free_memory() {
   CUDA_CHECK_RETURN(cudaFree(d_L7));
   CUDA_CHECK_RETURN(cudaFree(d_disparity));
   CUDA_CHECK_RETURN(cudaFree(d_disparity_filtered_uchar));
+  CUDA_CHECK_RETURN(cudaFree(d_disparity_right));
+  CUDA_CHECK_RETURN(cudaFree(d_disparity_right_filtered_uchar));
   CUDA_CHECK_RETURN(cudaFree(d_cost));
+  CUDA_CHECK_RETURN(cudaFree(d_s));
 
   delete[] h_disparity;
 }

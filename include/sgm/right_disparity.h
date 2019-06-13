@@ -13,23 +13,13 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ***********************************************************************/
-#ifndef DISPARITY_METHOD_H_
-#define DISPARITY_METHOD_H_
+
+#ifndef RIGHT_DISPARITY_H_
+#define RIGHT_DISPARITY_H_
 
 #include <stdint.h>
-#include <opencv2/opencv.hpp>
-#include "util.h"
-#include "configuration.h"
-#include "costs.h"
-#include "hamming_cost.h"
-#include "median_filter.h"
-#include "cost_aggregation.h"
-#include "debug.h"
-#include "right_disparity.h"
 
-void init_disparity_method(const uint8_t _p1, const uint8_t _p2);
-void compute_disparity_method(cv::Mat left, cv::Mat right, cv::Mat* disparity, float *elapsed_time_ms);
-void finish_disparity_method();
-static void free_memory();
+__global__ void ChooseRightDisparity(uint8_t *right_disparity, const uint16_t *smoothed_cost, const uint32_t rows, const uint32_t cols);
 
-#endif /* DISPARITY_METHOD_H_ */
+#endif /* RIGHT_DISPARITY_H_ */
+

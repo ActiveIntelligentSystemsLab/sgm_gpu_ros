@@ -39,6 +39,7 @@ add_library(${PROJECT_NAME}
   src/sgm/disparity_method.cu
   src/sgm/hamming_cost.cu
   src/sgm/median_filter.cu
+  src/sgm/right_disparity.cu
 )
 target_link_libraries(${PROJECT_NAME}
   ${catkin_LIBRARIES}
