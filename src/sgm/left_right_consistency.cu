@@ -21,6 +21,9 @@ __global__ void ChooseRightDisparity(uint8_t *right_disparity, const uint16_t *s
   const int x = blockIdx.x*blockDim.x+threadIdx.x;
   const int y = blockIdx.y*blockDim.y+threadIdx.y;
   
+  if (x >= cols || y >= rows)
+    return;
+  
   int min_cost_disparity = 0;
   uint16_t min_cost = smoothed_cost[(y*cols + x)*MAX_DISPARITY + min_cost_disparity];
   
@@ -41,6 +44,10 @@ __global__ void LeftRightConsistenchCheck(uint8_t* disparity, const uint8_t* dis
 {
   const int x = blockIdx.x*blockDim.x+threadIdx.x;
   const int y = blockIdx.y*blockDim.y+threadIdx.y;
+  
+  if (x >= cols || y >= rows)
+    return;
+    
   const int x_right = x - disparity[y*cols + x];
   
   if (x_right < 0) {
