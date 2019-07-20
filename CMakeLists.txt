@@ -45,3 +45,6 @@ target_link_libraries(${PROJECT_NAME}
   ${catkin_LIBRARIES}
   ${OpenCV_LIBS}
 )
+
+add_executable(sgm_gpu_node src/sgm_gpu_node.cpp)
+target_link_libraries(sgm_gpu_node ${catkin_LIBRARIES})
