@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<launch>
+  <node name="sgm_gpu" pkg="sgm_gpu" type="sgm_gpu_node">
+    <param name="image_transport" value="compressed"/>
+    <remap from="left_image" to="stereo_robot/mobile_base/camera/left/image_raw"/>
+    <remap from="right_image" to="stereo_robot/mobile_base/camera/right/image_raw"/>
+  </node>
+
+  <node name="bag_player" pkg="rosbag" type="play" args="--loop $(find sgm_gpu)/data/test_input.bag"/>
+</launch>
