@@ -8,4 +8,7 @@
   </node>
 
   <node name="bag_player" pkg="rosbag" type="play" args="--loop $(find sgm_gpu)/data/test_input.bag"/>
+  <node name="disparity_viewer" pkg="image_view" type="disparity_view">
+    <remap from="image" to="sgm_gpu/disparity"/>
+  </node>
 </launch>
