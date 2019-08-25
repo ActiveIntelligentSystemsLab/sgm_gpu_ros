@@ -1,0 +1,43 @@
+FROM nvidia/cuda:10.1-cudnn7-devel-ubuntu18.04
+
+# Setup timezone
+RUN echo 'Etc/UTC' > /etc/timezone; \
+    ln -s /usr/share/zoneinfo/Etc/UTC /etc/localtime; \
+    apt-get update; \
+    apt-get install -y tzdata
+
+# Install ROS
+RUN apt-get install -y dirmngr gnupg2
+RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu bionic main" > /etc/apt/sources.list.d/ros-latest.list'
+RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+RUN apt-get update; \
+    apt-get install --no-install-recommends -y \
+      python-rosdep \
+      python-rosinstall \
+      python-vcstools \
+      ros-melodic-perception
+RUN rosdep init
+RUN rosdep update
+
+# Build sgm_gpu
+RUN mkdir -p /root/catkin_ws/src
+RUN git clone https://github.com/ActiveIntelligentSystemsLab/sgm_gpu_ros.git /root/catkin_ws/src/sgm_gpu_ros
+RUN bash -c "source /opt/ros/melodic/setup.bash; \
+             source /root/catkin_ws/devel/setup.bash; \
+             cd /root/catkin_ws; \
+             catkin_make"
+
+# For NVIDIA Container Toolkit
+ENV NVIDIA_VISIBLE_DEVICES all
+ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
+
+# Load ROS environment at docker exec bash
+RUN echo "source /opt/ros/melodic/setup.bash" >> /root/.bashrc
+RUN echo "source /root/catkin_ws/devel/setup.bash" >> /root/.bashrc
+
+WORKDIR /root/catkin_ws
+
+# Replace entrypoint to load catkin_ws at docker run
+COPY ./ros_entrypoint.sh /
+ENTRYPOINT ["/ros_entrypoint.sh"]
+CMD [ "bash" ]

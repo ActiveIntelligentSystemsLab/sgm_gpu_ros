@@ -1,0 +1,12 @@
+version: "2.3"
+services: 
+  sgm_gpu:
+    build: .
+    container_name: sgm_gpu
+    command: roslaunch sgm_gpu test.launch
+    runtime: nvidia
+    environment: 
+      - DISPLAY
+      - QT_X11_NO_MITSHM=1
+    volumes: 
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw

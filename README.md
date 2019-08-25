@@ -8,25 +8,34 @@ Visualized result:
 
 ## Prerequisite
 
+### Without Docker
+
 - [ROS Melodic Morenia](http://wiki.ros.org/melodic)
 - [CUDA Toolkit](https://developer.nvidia.com/cuda-toolkit)
 
-## Build
+### With Docker
+
+- Docker
+- Docker Compose
+- Nvidia Docker2
+
+## Run
 
 ```
 $ cd <YourCatkinWorkspace>/src
 $ git clone https://github.com/ActiveIntelligentSystemsLab/sgm_gpu_ros.git
 $ cd ..
 $ catkin_make
+$ roslaunch sgm_gpu test.launch
 ```
 
-## Run 
+## Run with Docker
 
 ```
-$ rosrun nodelet nodelet standalone sgm_gpu/sgm_gpu_nodelet left_image:=<YourLeftImageTopic> right_image:=<YourRightImageTopic>
+$ git clone https://github.com/ActiveIntelligentSystemsLab/sgm_gpu_ros.git
+$ cd sgm_gpu_ros
+$ sudo docker-compose up
 ```
-
-You can see result by [disparity_visualize](https://github.com/ActiveIntelligentSystemsLab/disparity_visualize) .
 
 ## sgm_gpu/sgm_gpu_nodelet
 
