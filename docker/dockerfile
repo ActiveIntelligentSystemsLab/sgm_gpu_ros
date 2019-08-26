@@ -23,7 +23,6 @@ RUN rosdep update
 RUN mkdir -p /root/catkin_ws/src
 RUN git clone https://github.com/ActiveIntelligentSystemsLab/sgm_gpu_ros.git /root/catkin_ws/src/sgm_gpu_ros
 RUN bash -c "source /opt/ros/melodic/setup.bash; \
-             source /root/catkin_ws/devel/setup.bash; \
              cd /root/catkin_ws; \
              catkin_make"
 
