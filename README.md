@@ -34,6 +34,7 @@ $ roslaunch sgm_gpu test.launch
 ```
 $ git clone https://github.com/ActiveIntelligentSystemsLab/sgm_gpu_ros.git
 $ cd sgm_gpu_ros
+$ xhost +local:root
 $ sudo docker-compose up
 ```
 
