@@ -19,6 +19,9 @@ RUN apt-get update; \
 RUN rosdep init
 RUN rosdep update
 
+# Install tools for development
+RUN apt-get install vim byobu
+
 # Build sgm_gpu
 RUN mkdir -p /root/catkin_ws/src
 RUN git clone https://github.com/ActiveIntelligentSystemsLab/sgm_gpu_ros.git /root/catkin_ws/src/sgm_gpu_ros
