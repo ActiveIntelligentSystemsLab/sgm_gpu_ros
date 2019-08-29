@@ -35,7 +35,8 @@ RUN echo "source /root/catkin_ws/devel/setup.bash" >> /root/.bashrc
 
 WORKDIR /root/catkin_ws
 
-# Replace entrypoint to load catkin_ws at docker run
+# Set entrypoint to load catkin_ws at docker run
 COPY ./ros_entrypoint.sh /
+RUN chmod +x /ros_entrypoint.sh
 ENTRYPOINT ["/ros_entrypoint.sh"]
 CMD [ "bash" ]
