@@ -20,7 +20,8 @@ RUN rosdep init
 RUN rosdep update
 
 # Install tools for development
-RUN apt-get install vim byobu
+RUN apt-get update && \
+    apt-get install -y vim byobu
 
 # Build sgm_gpu
 RUN mkdir -p /root/catkin_ws/src
