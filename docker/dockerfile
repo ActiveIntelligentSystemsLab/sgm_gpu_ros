@@ -29,10 +29,6 @@ RUN bash -c "source /opt/ros/melodic/setup.bash; \
              cd /root/catkin_ws; \
              catkin_make"
 
-# For NVIDIA Container Toolkit
-ENV NVIDIA_VISIBLE_DEVICES all
-ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
-
 # Load ROS environment at docker exec bash
 RUN echo "source /opt/ros/melodic/setup.bash" >> /root/.bashrc
 RUN echo "source /root/catkin_ws/devel/setup.bash" >> /root/.bashrc
