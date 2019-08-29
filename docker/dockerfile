@@ -1,16 +1,16 @@
 FROM nvidia/cuda:10.1-cudnn7-devel-ubuntu18.04
 
 # Setup timezone
-RUN echo 'Etc/UTC' > /etc/timezone; \
-    ln -s /usr/share/zoneinfo/Etc/UTC /etc/localtime; \
-    apt-get update; \
+RUN echo 'Etc/UTC' > /etc/timezone && \
+    ln -s /usr/share/zoneinfo/Etc/UTC /etc/localtime && \
+    apt-get update && \
     apt-get install -y tzdata
 
 # Install ROS
 RUN apt-get install -y dirmngr gnupg2
 RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu bionic main" > /etc/apt/sources.list.d/ros-latest.list'
 RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
-RUN apt-get update; \
+RUN apt-get update && \
     apt-get install --no-install-recommends -y \
       python-rosdep \
       python-rosinstall \
