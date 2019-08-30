@@ -23,18 +23,23 @@ RUN rosdep update
 RUN apt-get update && \
     apt-get install -y vim byobu
 
-# Build sgm_gpu
+# Make catkin workspace
+RUN apt-get update && \
+    apt-get install -y python-catkin-tools
 RUN mkdir -p /root/catkin_ws/src
-RUN git clone https://github.com/ActiveIntelligentSystemsLab/sgm_gpu_ros.git /root/catkin_ws/src/sgm_gpu_ros
+WORKDIR /root/catkin_ws
 RUN bash -c "source /opt/ros/melodic/setup.bash && \
-             cd /root/catkin_ws && \
-             catkin_make -DCMAKE_BUILD_TYPE=Release"
+             catkin init && \
+             catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release"
+
+# Build sgm_gpu
+RUN git clone https://github.com/ActiveIntelligentSystemsLab/sgm_gpu_ros.git src/sgm_gpu_ros
+RUN bash -c "source /opt/ros/melodic/setup.bash && \
+             catkin build"
 
 # Load ROS environment at docker exec bash
 RUN echo "source /opt/ros/melodic/setup.bash" >> /root/.bashrc
 RUN echo "source /root/catkin_ws/devel/setup.bash" >> /root/.bashrc
-
-WORKDIR /root/catkin_ws
 
 # Set entrypoint to load catkin_ws at docker run
 COPY ./ros_entrypoint.sh /
