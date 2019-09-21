@@ -93,3 +93,9 @@ A nodelet calculate disparity from stereo image topic.
 
 - Disparity range is `[0, 127]`
 - Image width and height must be a divisible by 4
+
+## sgm_gpu_node
+
+Standalone node version of sgm_gpu_nodelet.
+
+Topics and parameters are same to the nodelet.
