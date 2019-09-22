@@ -19,3 +19,7 @@ services:
       - ROS_MASTER_URI=http://${COMPOSE_PROJECT_NAME}_master:11311
     volumes: 
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - sgm_gpu_root:/root
+      
+volumes:
+  sgm_gpu_root:
