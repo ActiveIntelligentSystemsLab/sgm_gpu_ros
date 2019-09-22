@@ -1,8 +1,12 @@
 version: "2.3"
 services: 
-  sgm_gpu:
+  master:
+    container_name: ${COMPOSE_PROJECT_NAME}_master
+    image: ros:melodic-ros-core
+    command: roscore
+  launch:
     build: .
-    container_name: sgm_gpu
+    container_name: ${COMPOSE_PROJECT_NAME}_launch
     command: roslaunch sgm_gpu test.launch
     runtime: nvidia
     environment: 
