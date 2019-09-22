@@ -1,0 +1,7 @@
+# Override for development 
+# Just run ROS master and access interactive shell by docker-compose exec
+version: "2.3"
+services: 
+  master:
+    command: roscore
+

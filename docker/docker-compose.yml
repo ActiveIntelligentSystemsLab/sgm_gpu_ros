@@ -1,25 +1,17 @@
 version: "2.3"
 services: 
   master:
-    image: ros:melodic-ros-core
-    container_name: ${COMPOSE_PROJECT_NAME}_master
-    command: roscore
-
-  launch:
     build: .
-    depends_on: 
-      - master
-    container_name: ${COMPOSE_PROJECT_NAME}_launch
-    command: roslaunch --wait sgm_gpu test.launch
+    container_name: ${COMPOSE_PROJECT_NAME}_master
+    command: roslaunch sgm_gpu test.launch
     runtime: nvidia
     environment: 
       - DISPLAY
       - QT_X11_NO_MITSHM=1
-      - ROS_HOSTNAME=${COMPOSE_PROJECT_NAME}_launch
-      - ROS_MASTER_URI=http://${COMPOSE_PROJECT_NAME}_master:11311
     volumes: 
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - sgm_gpu_root:/root
       
 volumes:
   sgm_gpu_root:
+
