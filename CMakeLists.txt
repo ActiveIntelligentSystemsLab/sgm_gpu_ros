@@ -62,3 +62,22 @@ add_executable(${PROJECT_NAME}_node src/${PROJECT_NAME}_node.cpp)
 add_dependencies(${PROJECT_NAME}_node ${catkin_EXPORTED_TARGETS})
 target_link_libraries(sgm_gpu_node ${catkin_LIBRARIES})
 
+add_executable(${PROJECT_NAME}_server
+  src/${PROJECT_NAME}_server_node.cu
+  src/${PROJECT_NAME}_server.cu
+  src/sgm/costs.cu
+  src/sgm/debug.cu
+  src/sgm/disparity_method.cu
+  src/sgm/hamming_cost.cu
+  src/sgm/left_right_consistency.cu
+  src/sgm/median_filter.cu
+)
+add_dependencies(${PROJECT_NAME}_server 
+  ${${PROJECT_NAME}_EXPORTED_TARGETS}
+  ${catkin_EXPORTED_TARGETS}
+)
+target_link_libraries(${PROJECT_NAME}_server
+  ${catkin_LIBRARIES}
+  ${OpenCV_LIBS}
+)
+
