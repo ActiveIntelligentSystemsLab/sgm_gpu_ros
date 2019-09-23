@@ -7,6 +7,7 @@ find_package(catkin REQUIRED COMPONENTS
   image_geometry
   image_transport
   message_filters
+  message_generation
   nodelet
   roscpp
   sensor_msgs
@@ -24,7 +25,17 @@ set(CUDA_NVCC_FLAGS
   -gencode=arch=compute_61,code=sm_61
 )
 
-catkin_package()
+add_service_files(FILES EstimateDisparity.srv)
+generate_messages(DEPENDENCIES
+  sensor_msgs
+  stereo_msgs
+)
+
+catkin_package(CATKIN_DEPENDS
+  message_runtime 
+  sensor_msgs
+  stereo_msgs
+)
 
 include_directories(
   include
@@ -41,10 +52,13 @@ add_library(${PROJECT_NAME}
   src/sgm/left_right_consistency.cu
   src/sgm/median_filter.cu
 )
+add_dependencies(${PROJECT_NAME} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(${PROJECT_NAME}
   ${catkin_LIBRARIES}
   ${OpenCV_LIBS}
 )
 
-add_executable(sgm_gpu_node src/sgm_gpu_node.cpp)
+add_executable(${PROJECT_NAME}_node src/${PROJECT_NAME}_node.cpp)
+add_dependencies(${PROJECT_NAME}_node ${catkin_EXPORTED_TARGETS})
 target_link_libraries(sgm_gpu_node ${catkin_LIBRARIES})
+
