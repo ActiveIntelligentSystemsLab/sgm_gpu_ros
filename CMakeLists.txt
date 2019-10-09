@@ -81,3 +81,12 @@ target_link_libraries(${PROJECT_NAME}_server
   ${OpenCV_LIBS}
 )
 
+add_executable(disparity_service_test_client 
+  src/disparity_service_test_client_node.cpp
+  src/disparity_service_test_client.cpp
+)
+add_dependencies(disparity_service_test_client 
+  ${${PROJECT_NAME}_EXPORTED_TARGETS}
+  ${catkin_EXPORTED_TARGETS}
+)
+target_link_libraries(disparity_service_test_client ${catkin_LIBRARIES})
