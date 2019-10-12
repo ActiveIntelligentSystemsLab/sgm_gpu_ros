@@ -24,6 +24,7 @@ Visualized result:
 ```
 $ cd <YourCatkinWorkspace>/src
 $ git clone https://github.com/ActiveIntelligentSystemsLab/sgm_gpu_ros.git
+$ git clone https://github.com/ActiveIntelligentSystemsLab/disparity_srv.git
 $ cd ..
 $ catkin_make
 $ roslaunch sgm_gpu test.launch
