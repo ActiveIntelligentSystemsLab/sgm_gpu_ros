@@ -4,6 +4,7 @@ project(sgm_gpu CUDA CXX)
 
 find_package(catkin REQUIRED COMPONENTS
   cv_bridge
+	disparity_srv
   image_geometry
   image_transport
   message_filters
@@ -41,10 +42,35 @@ add_library(${PROJECT_NAME}
   src/sgm/left_right_consistency.cu
   src/sgm/median_filter.cu
 )
+add_dependencies(${PROJECT_NAME} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(${PROJECT_NAME}
   ${catkin_LIBRARIES}
   ${OpenCV_LIBS}
 )
 
-add_executable(sgm_gpu_node src/sgm_gpu_node.cpp)
+add_executable(${PROJECT_NAME}_node src/${PROJECT_NAME}_node.cpp)
+add_dependencies(${PROJECT_NAME}_node ${catkin_EXPORTED_TARGETS})
 target_link_libraries(sgm_gpu_node ${catkin_LIBRARIES})
+
+add_executable(${PROJECT_NAME}_server
+  src/${PROJECT_NAME}_server_node.cu
+  src/${PROJECT_NAME}_server.cu
+  src/sgm/costs.cu
+  src/sgm/debug.cu
+  src/sgm/disparity_method.cu
+  src/sgm/hamming_cost.cu
+  src/sgm/left_right_consistency.cu
+  src/sgm/median_filter.cu
+)
+add_dependencies(${PROJECT_NAME}_server ${catkin_EXPORTED_TARGETS})
+target_link_libraries(${PROJECT_NAME}_server
+  ${catkin_LIBRARIES}
+  ${OpenCV_LIBS}
+)
+
+add_executable(disparity_service_test_client 
+  src/disparity_service_test_client_node.cpp
+  src/disparity_service_test_client.cpp
+)
+add_dependencies(disparity_service_test_client ${catkin_EXPORTED_TARGETS})
+target_link_libraries(disparity_service_test_client ${catkin_LIBRARIES})
