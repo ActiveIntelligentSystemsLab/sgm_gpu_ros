@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>disparity_srv</name>
+  <version>0.0.0</version>
+  <description>A service definition to estimate disparity from stereo image</description>
+
+  <maintainer email="fujimoto@aisl.cs.tut.ac.jp">Hironori Fujimoto</maintainer>
+  <license>BSD</license>
+  <!-- <url type="website"></url> -->
+
+  <buildtool_depend>catkin</buildtool_depend>
+	<depend>sensor_msgs</depend>
+	<depend>stereo_msgs</depend>
+	<build_depend>message_generation</build_depend>
+	<build_export_depend>message_runtime</build_export_depend>
+	<exec_depend>message_runtime</exec_depend>
+</package>

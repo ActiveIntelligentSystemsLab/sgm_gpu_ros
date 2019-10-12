@@ -15,7 +15,7 @@
 ***********************************************************************/
 
 #include <ros/ros.h>
-#include <sgm_gpu/EstimateDisparity.h>
+#include <disparity_srv/EstimateDisparity.h>
 
 namespace sgm_gpu {
 
@@ -47,7 +47,7 @@ private:
   /**
    * @brief Callback of EstimateDisparity service
    */
-  bool disparityServiceCallback(EstimateDisparity::Request& request, EstimateDisparity::Response& response);
+  bool disparityServiceCallback(disparity_srv::EstimateDisparity::Request& request, disparity_srv::EstimateDisparity::Response& response);
 
 public:
   SgmGpuServer();

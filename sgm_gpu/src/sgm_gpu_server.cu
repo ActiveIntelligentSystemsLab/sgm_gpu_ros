@@ -43,7 +43,7 @@ SgmGpuServer::SgmGpuServer()
   disparity_server_ = private_node_handle.advertiseService("estimate_disparity", &SgmGpuServer::disparityServiceCallback, this);
 }
 
-bool SgmGpuServer::disparityServiceCallback(EstimateDisparity::Request& request, EstimateDisparity::Response& response)
+bool SgmGpuServer::disparityServiceCallback(disparity_srv::EstimateDisparity::Request& request, disparity_srv::EstimateDisparity::Response& response)
 {
   // Even if image has 3 channels(RGB), cv_bridge convert it to greyscale
   cv_bridge::CvImagePtr left_image = cv_bridge::toCvCopy(request.left_image, sensor_msgs::image_encodings::MONO8);

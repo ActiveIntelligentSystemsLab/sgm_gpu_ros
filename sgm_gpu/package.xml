@@ -7,9 +7,11 @@
   <description>A ROS package of Semi-Global Matching on the GPU</description>
   <maintainer email="fujimoto@aisl.cs.tut.ac.jp">Hironori Fujimoto</maintainer>
   <license>GPL3</license>
+	<url type="website">https://github.com/ActiveIntelligentSystemsLab/sgm_gpu_ros</url>
 
   <buildtool_depend>catkin</buildtool_depend>
   <depend>cv_bridge</depend>
+	<depend>disparity_srv</depend>
   <depend>image_geometry</depend>
   <depend>image_transport</depend>
   <depend>message_filters</depend>
@@ -17,9 +19,6 @@
   <depend>roscpp</depend>
   <depend>sensor_msgs</depend>
   <depend>stereo_msgs</depend>
-  <build_depend>message_generation</build_depend>
-  <build_export_depend>message_runtime</build_export_depend>
-  <exec_depend>message_runtime</exec_depend>
   <!-- rosdep keys -->
   <depend>libopencv-dev</depend>
   <depend>nvidia-cuda</depend>

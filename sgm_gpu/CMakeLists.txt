@@ -4,10 +4,10 @@ project(sgm_gpu CUDA CXX)
 
 find_package(catkin REQUIRED COMPONENTS
   cv_bridge
+	disparity_srv
   image_geometry
   image_transport
   message_filters
-  message_generation
   nodelet
   roscpp
   sensor_msgs
@@ -25,17 +25,7 @@ set(CUDA_NVCC_FLAGS
   -gencode=arch=compute_61,code=sm_61
 )
 
-add_service_files(FILES EstimateDisparity.srv)
-generate_messages(DEPENDENCIES
-  sensor_msgs
-  stereo_msgs
-)
-
-catkin_package(CATKIN_DEPENDS
-  message_runtime 
-  sensor_msgs
-  stereo_msgs
-)
+catkin_package()
 
 include_directories(
   include
@@ -72,10 +62,7 @@ add_executable(${PROJECT_NAME}_server
   src/sgm/left_right_consistency.cu
   src/sgm/median_filter.cu
 )
-add_dependencies(${PROJECT_NAME}_server 
-  ${${PROJECT_NAME}_EXPORTED_TARGETS}
-  ${catkin_EXPORTED_TARGETS}
-)
+add_dependencies(${PROJECT_NAME}_server ${catkin_EXPORTED_TARGETS})
 target_link_libraries(${PROJECT_NAME}_server
   ${catkin_LIBRARIES}
   ${OpenCV_LIBS}
@@ -85,8 +72,5 @@ add_executable(disparity_service_test_client
   src/disparity_service_test_client_node.cpp
   src/disparity_service_test_client.cpp
 )
-add_dependencies(disparity_service_test_client 
-  ${${PROJECT_NAME}_EXPORTED_TARGETS}
-  ${catkin_EXPORTED_TARGETS}
-)
+add_dependencies(disparity_service_test_client ${catkin_EXPORTED_TARGETS})
 target_link_libraries(disparity_service_test_client ${catkin_LIBRARIES})

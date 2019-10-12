@@ -1,7 +1,7 @@
 #include "disparity_service_test_client.h"
 
 #include <image_transport/camera_common.h>
-#include <sgm_gpu/EstimateDisparity.h>
+#include <disparity_srv/EstimateDisparity.h>
 
 namespace sgm_gpu
 {
@@ -9,7 +9,7 @@ namespace sgm_gpu
   {
     ros::NodeHandle node_handle;
 
-    disparity_service_client_ = node_handle.serviceClient<EstimateDisparity>("estimate_disparity");
+    disparity_service_client_ = node_handle.serviceClient<disparity_srv::EstimateDisparity>("estimate_disparity");
     disparity_service_client_.waitForExistence();
 
     ros::NodeHandle private_node_handle("~");
@@ -36,7 +36,7 @@ namespace sgm_gpu
 
   void DisparityServiceTestClient::stereoCallback(const sensor_msgs::ImageConstPtr& left_image, const sensor_msgs::ImageConstPtr& right_image, const sensor_msgs::CameraInfoConstPtr& left_camera_info, const sensor_msgs::CameraInfoConstPtr& right_camera_info)
   {
-    EstimateDisparity service_object;
+		disparity_srv::EstimateDisparity service_object;
 
     service_object.request.left_image = *left_image;
     service_object.request.right_image = *right_image;
