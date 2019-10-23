@@ -110,7 +110,7 @@ Provide a service which estimate disparity from stereo images.
 
 * `~estimate_disparity` ([sgm_gpu/EstimateDisparity](srv/EstimateDisparity.srv))
 
-### Parameters
+#### Parameters
 
 Same to sgm_gpu_nodelet.
 
@@ -139,7 +139,7 @@ Request of the service is filled by data from subscribed topics and response of 
 
   Subscribed automatically based on topic of right_image.
 
-### Published topic
+#### Published topic
 
 - `~disparity` ([stereo_msgs/DisparityImage](http://docs.ros.org/api/stereo_msgs/html/msg/DisparityImage.html))
 
