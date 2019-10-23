@@ -78,10 +78,31 @@ void SgmGpuNodelet::stereoCallback(const sensor_msgs::ImageConstPtr &left_image_
     return;
   }
 
-  if (cv_left_image->image.rows % 4 != 0 || cv_left_image->image.cols % 4 != 0)
+  // sgm_gpu specify image size to divisible by 4
+  bool need_resize = false;
+  cv::Size original_size, resized_size; 
+  original_size = cv::Size(cv_left_image->image.cols, cv_left_image->image.rows);
+  resized_size = original_size;
+  if (original_size.width % 4 != 0)
   {
-    NODELET_INFO("Image width and height must be divisible by 4");
-    return;
+    need_resize = true;
+    resized_size.width = (original_size.width / 4 + 1) * 4;
+  }
+  if (original_size.height % 4 != 0)
+  {
+    need_resize = true;
+    resized_size.height = (original_size.height / 4 + 1) * 4;
+  }
+  if (need_resize)
+  {
+    ROS_INFO_STREAM(
+      "Resize image width and height to divisible by 4 before stereo matching\n" <<
+      "The size with restored to original at publishing\n" <<
+      "Original size: " << original_size.width << "x" << original_size.height << "\n" <<
+      "Resized to: " << resized_size.width << "x" << resized_size.height
+    );
+    cv::resize(cv_left_image->image, cv_left_image->image, resized_size, 0, 0, cv::INTER_LINEAR);
+    cv::resize(cv_right_image->image, cv_right_image->image, resized_size, 0, 0, cv::INTER_LINEAR);
   }
 
   float elapsed_time_ms;
@@ -89,6 +110,9 @@ void SgmGpuNodelet::stereoCallback(const sensor_msgs::ImageConstPtr &left_image_
   compute_disparity_method(cv_left_image->image, cv_right_image->image, &disparity_8u, &elapsed_time_ms, check_consistency_);
 
   NODELET_INFO("Elapsed time: %f [ms]", elapsed_time_ms);
+
+  if (need_resize)
+    cv::resize(disparity_8u, disparity_8u, original_size, 0, 0, cv::INTER_AREA);
 
   cv::Mat disparity_32f;
   disparity_8u.convertTo(disparity_32f, CV_32F);

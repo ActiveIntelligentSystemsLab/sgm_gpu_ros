@@ -93,7 +93,6 @@ A nodelet calculate disparity from stereo image topic.
 ### Limitations
 
 - Disparity range is `[0, 127]`
-- Image width and height must be a divisible by 4
 
 ## Nodes 
 
