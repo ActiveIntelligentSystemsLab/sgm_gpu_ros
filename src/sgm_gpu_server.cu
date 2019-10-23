@@ -57,11 +57,31 @@ bool SgmGpuServer::disparityServiceCallback(disparity_srv::EstimateDisparity::Re
     return false;
   }
 
-  if (left_image->image.rows % 4 != 0 || left_image->image.cols % 4 != 0)
+  // sgm_gpu specify image size to divisible by 4
+  bool need_resize = false;
+  cv::Size original_size, resized_size; 
+  original_size = cv::Size(left_image->image.cols, left_image->image.rows);
+  resized_size = original_size;
+  if (original_size.width % 4 != 0)
   {
-    ROS_ERROR_STREAM("Image width and height must be divisible by 4\n" <<
-                     "Width x height: " << left_image->image.rows << "x" << left_image->image.cols);
-    return false;
+    need_resize = true;
+    resized_size.width = (original_size.width / 4 + 1) * 4;
+  }
+  if (original_size.height % 4 != 0)
+  {
+    need_resize = true;
+    resized_size.height = (original_size.height / 4 + 1) * 4;
+  }
+  if (need_resize)
+  {
+    ROS_INFO_STREAM(
+      "Resize image width and height to divisible by 4 before stereo matching\n" <<
+      "The size with restored to original at publishing\n" <<
+      "Original size: " << original_size.width << "x" << original_size.height << "\n" <<
+      "Resized to: " << resized_size.width << "x" << resized_size.height
+    );
+    cv::resize(left_image->image, left_image->image, resized_size, 0, 0, cv::INTER_LINEAR);
+    cv::resize(right_image->image, right_image->image, resized_size, 0, 0, cv::INTER_LINEAR);
   }
 
   float elapsed_time_ms;
@@ -69,6 +89,9 @@ bool SgmGpuServer::disparityServiceCallback(disparity_srv::EstimateDisparity::Re
   compute_disparity_method(left_image->image, right_image->image, &disparity_8u, &elapsed_time_ms, check_consistency_);
 
   ROS_INFO("Elapsed time: %f [ms]", elapsed_time_ms);
+
+  if (need_resize)
+    cv::resize(disparity_8u, disparity_8u, original_size, 0, 0, cv::INTER_AREA);
 
   cv::Mat disparity_32f;
   disparity_8u.convertTo(disparity_32f, CV_32F);
