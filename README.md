@@ -24,7 +24,6 @@ Visualized result:
 ```
 $ cd <YourCatkinWorkspace>/src
 $ git clone https://github.com/ActiveIntelligentSystemsLab/sgm_gpu_ros.git
-$ git clone https://github.com/ActiveIntelligentSystemsLab/disparity_srv.git
 $ cd ..
 $ catkin_make
 $ roslaunch sgm_gpu test.launch
@@ -101,49 +100,4 @@ A nodelet calculate disparity from stereo image topic.
 Standalone node version of sgm_gpu_nodelet.
 
 Topics and parameters are same to the nodelet.
-
-### sgm_gpu_server
-
-Provide a service which estimate disparity from stereo images.
-
-#### Provided service
-
-* `~estimate_disparity` ([sgm_gpu/EstimateDisparity](srv/EstimateDisparity.srv))
-
-#### Parameters
-
-Same to sgm_gpu_nodelet.
-
-### disparity_service_test_client
-
-Test client for [sgm_gpu/EstimateDisparity](srv/EstimateDisparity.srv) service.
-
-Request of the service is filled by data from subscribed topics and response of the service is published.
-
-#### Subscribed topics
-
-- `left_image` ([sensor_msgs/Image](http://docs.ros.org/api/sensor_msgs/html/msg/Image.html))
-  
-  Rectified image topic from left camera.
-  Should be remapped.
-
-- `right_image` ([sensor_msgs/Image](http://docs.ros.org/api/sensor_msgs/html/msg/Image.html))
-
-  Rectified image topic from right camera. Should be remapped.
-
-- `<base topic of left_image>/camera_info` ([sensor_msgs/CameraInfo](http://docs.ros.org/api/sensor_msgs/html/msg/CameraInfo.html))
-
-  Subscribed automatically based on topic of left_image.
-
-- `<base topic of right_image>/camera_info` ([sensor_msgs/CameraInfo](http://docs.ros.org/api/sensor_msgs/html/msg/CameraInfo.html))
-
-  Subscribed automatically based on topic of right_image.
-
-#### Published topic
-
-- `~disparity` ([stereo_msgs/DisparityImage](http://docs.ros.org/api/stereo_msgs/html/msg/DisparityImage.html))
-
-#### Called service
-
-* `estimate_disparity` ([sgm_gpu/EstimateDisparity](srv/EstimateDisparity.srv))
 
