@@ -1,5 +1,5 @@
 /***********************************************************************
-  Copyright (C) 2019 Hironori Fujimoto
+  Copyright (C) 2020 Hironori Fujimoto
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -13,6 +13,8 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ***********************************************************************/
+#ifndef SGM_GPU__SGM_GPU_NODELET_H_
+#define SGM_GPU__SGM_GPU_NODELET_H_
 
 #include <ros/ros.h>
 #include <image_transport/image_transport.h>
@@ -66,3 +68,6 @@ public:
 };
 
 } // namespace sgm_gpu
+
+#endif // SGM_GPU__SGM_GPU_NODELET_H_
+

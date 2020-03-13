@@ -1,5 +1,5 @@
 /***********************************************************************
-  Copyright (C) 2019 Hironori Fujimoto
+  Copyright (C) 2020 Hironori Fujimoto
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -14,8 +14,8 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ***********************************************************************/
 
-#ifndef HAMMING_COST_H_
-#define HAMMING_COST_H_
+#ifndef SGM_GPU__HAMMING_COST_H_
+#define SGM_GPU__HAMMING_COST_H_
 
 #include "sgm_gpu/configuration.h"
 #include "sgm_gpu/util.h"
@@ -29,4 +29,5 @@ HammingDistanceCostKernel(const cost_t *d_transform0, const cost_t *d_transform1
 
 }
 
-#endif /* HAMMING_COST_H_ */
+#endif // SGM_GPU__HAMMING_COST_H_ 
+

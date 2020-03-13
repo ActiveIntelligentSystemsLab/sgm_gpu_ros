@@ -1,5 +1,5 @@
 /***********************************************************************
-  Copyright (C) 2019 Hironori Fujimoto
+  Copyright (C) 2020 Hironori Fujimoto
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -13,8 +13,8 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ***********************************************************************/
-#ifndef COSTS_H_
-#define COSTS_H_
+#ifndef SGM_GPU__COSTS_H_
+#define SGM_GPU__COSTS_H_
 
 #include <stdint.h>
 #include "sgm_gpu/configuration.h"
@@ -26,4 +26,5 @@ __global__ void CenterSymmetricCensusKernelSM2(const uint8_t *im, const uint8_t 
 
 }
 
-#endif /* COSTS_H_ */
+#endif // SGM_GPU__COSTS_H_
+

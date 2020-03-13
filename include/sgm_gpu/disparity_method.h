@@ -1,5 +1,5 @@
 /***********************************************************************
-  Copyright (C) 2019 Hironori Fujimoto
+  Copyright (C) 2020 Hironori Fujimoto
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -13,8 +13,8 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ***********************************************************************/
-#ifndef DISPARITY_METHOD_H_
-#define DISPARITY_METHOD_H_
+#ifndef SGM_GPU__DISPARITY_METHOD_H_
+#define SGM_GPU__DISPARITY_METHOD_H_
 
 #include <stdint.h>
 #include <opencv2/opencv.hpp>
@@ -24,7 +24,6 @@
 #include "sgm_gpu/hamming_cost.h"
 #include "sgm_gpu/median_filter.h"
 #include "sgm_gpu/cost_aggregation.h"
-#include "sgm_gpu/debug.h"
 #include "sgm_gpu/left_right_consistency.h"
 
 namespace sgm_gpu
@@ -37,4 +36,4 @@ static void free_memory();
 
 }
 
-#endif /* DISPARITY_METHOD_H_ */
+#endif // SGM_GPU__DISPARITY_METHOD_H_
