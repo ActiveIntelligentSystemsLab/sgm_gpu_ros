@@ -27,9 +27,14 @@
 #include "debug.h"
 #include "left_right_consistency.h"
 
+namespace sgm_gpu
+{
+
 void init_disparity_method(const uint8_t _p1, const uint8_t _p2);
 void compute_disparity_method(cv::Mat left, cv::Mat right, cv::Mat* disparity, float *elapsed_time_ms, bool check_consistency);
 void finish_disparity_method();
 static void free_memory();
+
+}
 
 #endif /* DISPARITY_METHOD_H_ */

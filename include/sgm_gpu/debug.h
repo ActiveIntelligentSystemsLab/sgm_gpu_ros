@@ -14,8 +14,29 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ***********************************************************************/
 
-#include "median_filter.h"
+#ifndef DEBUG_H_
+#define DEBUG_H_
 
-__global__ void MedianFilter3x3(const uint8_t* __restrict__ d_input, uint8_t* __restrict__ d_out, const uint32_t rows, const uint32_t cols) {
-  MedianFilter<3>(d_input, d_out, rows, cols);
+#include <iostream>
+#include <stdio.h>
+#include "configuration.h"
+
+namespace sgm_gpu
+{
+
+template<typename T>
+void write_file(const char* fname, const T *data, const int size) {
+  FILE* fp = fopen(fname, "wb");
+  if (fp == NULL) {
+    std::cerr << "Couldn't write transform file" << std::endl;
+    exit(-1);
+  }
+  fwrite (data, sizeof(T), size, fp);
+  fclose(fp);
 }
+
+void debug_log(const char *str);
+
+}
+
+#endif /* DEBUG_H_ */

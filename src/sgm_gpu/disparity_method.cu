@@ -16,6 +16,9 @@
 
 #include "disparity_method.h"
 
+namespace sgm_gpu
+{
+
 static cudaStream_t stream1, stream2, stream3;//, stream4, stream5, stream6, stream7, stream8;
 static uint8_t *d_im0;
 static uint8_t *d_im1;
@@ -215,7 +218,7 @@ void compute_disparity_method(cv::Mat left, cv::Mat right, cv::Mat* disparity, f
     }
     
     debug_log("Check left-right consistency");
-    LeftRightConsistenchCheck<<<grid_size, block_size, 0, stream1>>>(d_disparity_filtered_uchar, d_disparity_right_filtered_uchar, rows, cols);
+    LeftRightConsistencyCheck<<<grid_size, block_size, 0, stream1>>>(d_disparity_filtered_uchar, d_disparity_right_filtered_uchar, rows, cols);
     err = cudaGetLastError();
     if (err != cudaSuccess) {
       printf("Error: %s %d\n", cudaGetErrorString(err), err);
@@ -267,3 +270,6 @@ void finish_disparity_method() {
     CUDA_CHECK_RETURN(cudaStreamDestroy(stream3));
   }
 }
+
+} // namespace sgm_gpu
+

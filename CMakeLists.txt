@@ -29,18 +29,18 @@ catkin_package()
 
 include_directories(
   include
-  include/sgm
+  include/sgm_gpu
   ${catkin_INCLUDE_DIRS}
 )
 
 add_library(${PROJECT_NAME}
   src/sgm_gpu_nodelet.cu
-  src/sgm/costs.cu
-  src/sgm/debug.cu
-  src/sgm/disparity_method.cu
-  src/sgm/hamming_cost.cu
-  src/sgm/left_right_consistency.cu
-  src/sgm/median_filter.cu
+  src/sgm_gpu/costs.cu
+  src/sgm_gpu/debug.cu
+  src/sgm_gpu/disparity_method.cu
+  src/sgm_gpu/hamming_cost.cu
+  src/sgm_gpu/left_right_consistency.cu
+  src/sgm_gpu/median_filter.cu
 )
 add_dependencies(${PROJECT_NAME} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(${PROJECT_NAME}
@@ -55,12 +55,12 @@ target_link_libraries(sgm_gpu_node ${catkin_LIBRARIES})
 add_executable(${PROJECT_NAME}_server
   src/${PROJECT_NAME}_server_node.cu
   src/${PROJECT_NAME}_server.cu
-  src/sgm/costs.cu
-  src/sgm/debug.cu
-  src/sgm/disparity_method.cu
-  src/sgm/hamming_cost.cu
-  src/sgm/left_right_consistency.cu
-  src/sgm/median_filter.cu
+  src/sgm_gpu/costs.cu
+  src/sgm_gpu/debug.cu
+  src/sgm_gpu/disparity_method.cu
+  src/sgm_gpu/hamming_cost.cu
+  src/sgm_gpu/left_right_consistency.cu
+  src/sgm_gpu/median_filter.cu
 )
 add_dependencies(${PROJECT_NAME}_server ${catkin_EXPORTED_TARGETS})
 target_link_libraries(${PROJECT_NAME}_server

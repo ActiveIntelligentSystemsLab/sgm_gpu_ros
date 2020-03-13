@@ -17,6 +17,9 @@
 #include "costs.h"
 #include <stdio.h>
 
+namespace sgm_gpu
+{
+
 __global__ void 
 __launch_bounds__(1024, 2)
 CenterSymmetricCensusKernelSM2(const uint8_t *im, const uint8_t *im2, cost_t *transform, cost_t *transform2, const uint32_t rows, const uint32_t cols) {
@@ -107,3 +110,6 @@ CenterSymmetricCensusKernelSM2(const uint8_t *im, const uint8_t *im2, cost_t *tr
     transform2[idy*cols+idx] = census2;
   }
 }
+
+} // namespace sgm_gpu
+

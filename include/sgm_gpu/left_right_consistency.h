@@ -13,12 +13,19 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ***********************************************************************/
-#ifndef COSTS_H_
-#define COSTS_H_
+
+#ifndef LEFT_RIGHT_CONSISTENCY_H_
+#define LEFT_RIGHT_CONSISTENCY_H_
 
 #include <stdint.h>
-#include "configuration.h"
 
-__global__ void CenterSymmetricCensusKernelSM2(const uint8_t *im, const uint8_t *im2, cost_t *transform, cost_t *transform2, const uint32_t rows, const uint32_t cols);
+namespace sgm_gpu
+{
 
-#endif /* COSTS_H_ */
+__global__ void ChooseRightDisparity(uint8_t *right_disparity, const uint16_t *smoothed_cost, const uint32_t rows, const uint32_t cols);
+__global__ void LeftRightConsistencyCheck(uint8_t *disparity, const uint8_t *disparity_right, const uint32_t rows, const uint32_t cols);
+
+}
+
+#endif /* LEFT_RIGHT_CONSISTENCY_H_ */
+

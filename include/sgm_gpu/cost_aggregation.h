@@ -28,6 +28,9 @@
 #define DIR_LEFTRIGHT		2
 #define DIR_RIGHTLEFT		3
 
+namespace sgm_gpu
+{
+
 template<int add_col, bool recompute, bool join_dispcomputation>
 __device__ __forceinline__ void CostAggregationGenericIndexesIncrement(int *index, int *index_im, int *col, const int add_index, const int add_imindex) {
   *index += add_index;
@@ -501,5 +504,7 @@ __global__ void CostAggregationKernelUpToDown(uint8_t* d_cost, uint8_t *d_L, uin
     CostAggregationGeneric<T, add_col, DIR_UPDOWN, recompute, join_dispcomputation>(d_cost, d_L, d_s, P1, P2, initial_row, initial_col, max_iter, cols, add_index, d_transform0, d_transform1, add_imindex, d_disparity, d_L0, d_L1, d_L2, d_L3, d_L4, d_L5, d_L6);
   }
 }
+
+} // namespace sgm_gpu
 
 #endif /* COST_AGGREGATION_H_ */

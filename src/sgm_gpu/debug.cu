@@ -16,8 +16,13 @@
 
 #include "debug.h"
 
+namespace sgm_gpu
+{
+
 void debug_log(const char *str) {
 #if LOG
   std::cout << str << std::endl;
 #endif
+}
+
 }

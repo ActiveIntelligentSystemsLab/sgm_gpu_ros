@@ -13,29 +13,17 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ***********************************************************************/
-
-#ifndef CONFIGURATION_H_
-#define CONFIGURATION_H_
+#ifndef COSTS_H_
+#define COSTS_H_
 
 #include <stdint.h>
+#include "configuration.h"
 
-#define LOG         false
-#define WRITE_FILES true
+namespace sgm_gpu
+{
 
-#define	MAX_DISPARITY 128
-#define CENSUS_WIDTH  9
-#define CENSUS_HEIGHT 7
+__global__ void CenterSymmetricCensusKernelSM2(const uint8_t *im, const uint8_t *im2, cost_t *transform, cost_t *transform2, const uint32_t rows, const uint32_t cols);
 
+}
 
-#define TOP  (CENSUS_HEIGHT-1)/2
-#define LEFT (CENSUS_WIDTH-1)/2
-
-typedef uint32_t cost_t;
-
-#define COSTAGG_BLOCKSIZE       GPU_THREADS_PER_BLOCK
-#define COSTAGG_BLOCKSIZE_HORIZ GPU_THREADS_PER_BLOCK
-
-#define ABS_THRESH 3.0
-#define REL_THRESH 0.05
-
-#endif /* CONFIGURATION_H_ */
+#endif /* COSTS_H_ */

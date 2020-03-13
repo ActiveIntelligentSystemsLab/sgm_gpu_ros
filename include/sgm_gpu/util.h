@@ -35,6 +35,9 @@
 
 #define WARP_SIZE		32
 
+namespace sgm_gpu
+{
+
 static void CheckCudaErrorAux (const char *, unsigned, const char *, cudaError_t);
 #define CUDA_CHECK_RETURN(value) CheckCudaErrorAux(__FILE__,__LINE__, #value, value)
 
@@ -352,5 +355,7 @@ __inline__ __device__ bool blockAny(bool local_condition) {
 
   return local_condition;
 }
+
+} //namespace sgm_gpu
 
 #endif /* UTIL_H_ */

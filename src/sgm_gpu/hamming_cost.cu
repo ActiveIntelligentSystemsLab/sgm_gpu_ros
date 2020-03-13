@@ -16,6 +16,9 @@
 
 #include "hamming_cost.h"
 
+namespace sgm_gpu
+{
+
 //d_transform0, d_transform1, d_cost, rows, cols
 __global__ void
 HammingDistanceCostKernel (  const cost_t *d_transform0, const cost_t *d_transform1,
@@ -63,3 +66,6 @@ HammingDistanceCostKernel (  const cost_t *d_transform0, const cost_t *d_transfo
     __syncthreads();
   }
 }
+
+} // namespace sgm_gpu
+

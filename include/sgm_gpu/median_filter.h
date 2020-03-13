@@ -19,6 +19,9 @@
 
 #include <stdint.h>
 
+namespace sgm_gpu
+{
+
 __global__ void MedianFilter3x3(const uint8_t* __restrict__ d_input, uint8_t* __restrict__ d_out, const uint32_t rows, const uint32_t cols);
 
 template<int n, typename T>
@@ -52,4 +55,7 @@ __inline__ __device__ void MedianFilter(const T* __restrict__ d_input, T* __rest
     d_out[idx] = d_input[idx];
   }
 }
+
+} // namespace sgm_gpu
+
 #endif /* MEDIAN_FILTER_H_ */

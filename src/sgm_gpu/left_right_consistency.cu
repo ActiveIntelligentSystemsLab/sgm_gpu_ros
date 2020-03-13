@@ -17,6 +17,9 @@
 #include "left_right_consistency.h"
 #include "configuration.h"
 
+namespace sgm_gpu
+{
+
 __global__ void ChooseRightDisparity(uint8_t *right_disparity, const uint16_t *smoothed_cost, const uint32_t rows, const uint32_t cols) {
   const int x = blockIdx.x*blockDim.x+threadIdx.x;
   const int y = blockIdx.y*blockDim.y+threadIdx.y;
@@ -40,7 +43,7 @@ __global__ void ChooseRightDisparity(uint8_t *right_disparity, const uint16_t *s
   right_disparity[y*cols+x] = min_cost_disparity;
 }
 
-__global__ void LeftRightConsistenchCheck(uint8_t* disparity, const uint8_t* disparity_right, uint32_t rows, uint32_t cols)
+__global__ void LeftRightConsistencyCheck(uint8_t* disparity, const uint8_t* disparity_right, uint32_t rows, uint32_t cols)
 {
   const int x = blockIdx.x*blockDim.x+threadIdx.x;
   const int y = blockIdx.y*blockDim.y+threadIdx.y;
@@ -61,3 +64,6 @@ __global__ void LeftRightConsistenchCheck(uint8_t* disparity, const uint8_t* dis
     disparity[y*cols + x] = 255;
   }
 }
+
+} // namespace sgm_gpu
+
