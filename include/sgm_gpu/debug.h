@@ -19,7 +19,7 @@
 
 #include <iostream>
 #include <stdio.h>
-#include "configuration.h"
+#include "sgm_gpu/configuration.h"
 
 namespace sgm_gpu
 {

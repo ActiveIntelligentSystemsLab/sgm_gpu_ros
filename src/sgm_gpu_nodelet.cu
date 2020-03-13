@@ -14,7 +14,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ***********************************************************************/
 
-#include "sgm_gpu_nodelet.h"
+#include "sgm_gpu/sgm_gpu_nodelet.h"
 
 #include <pluginlib/class_list_macros.h>
 PLUGINLIB_EXPORT_CLASS(sgm_gpu::SgmGpuNodelet, nodelet::Nodelet);
@@ -25,7 +25,7 @@ PLUGINLIB_EXPORT_CLASS(sgm_gpu::SgmGpuNodelet, nodelet::Nodelet);
 #include <sensor_msgs/image_encodings.h>
 #include <stereo_msgs/DisparityImage.h>
 
-#include "disparity_method.h"
+#include "sgm_gpu/disparity_method.h"
 
 namespace sgm_gpu {
 

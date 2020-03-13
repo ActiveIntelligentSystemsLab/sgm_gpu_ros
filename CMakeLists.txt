@@ -28,18 +28,17 @@ catkin_package()
 
 include_directories(
   include
-  include/sgm_gpu
   ${catkin_INCLUDE_DIRS}
 )
 
 add_library(${PROJECT_NAME}
   src/sgm_gpu_nodelet.cu
-  src/sgm_gpu/costs.cu
-  src/sgm_gpu/debug.cu
-  src/sgm_gpu/disparity_method.cu
-  src/sgm_gpu/hamming_cost.cu
-  src/sgm_gpu/left_right_consistency.cu
-  src/sgm_gpu/median_filter.cu
+  src/costs.cu
+  src/debug.cu
+  src/disparity_method.cu
+  src/hamming_cost.cu
+  src/left_right_consistency.cu
+  src/median_filter.cu
 )
 add_dependencies(${PROJECT_NAME} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(${PROJECT_NAME}

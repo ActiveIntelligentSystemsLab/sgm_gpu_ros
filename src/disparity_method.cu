@@ -14,7 +14,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ***********************************************************************/
 
-#include "disparity_method.h"
+#include "sgm_gpu/disparity_method.h"
 
 namespace sgm_gpu
 {

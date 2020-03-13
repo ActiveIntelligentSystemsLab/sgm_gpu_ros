@@ -17,8 +17,8 @@
 #ifndef HAMMING_COST_H_
 #define HAMMING_COST_H_
 
-#include "configuration.h"
-#include "util.h"
+#include "sgm_gpu/configuration.h"
+#include "sgm_gpu/util.h"
 #include <stdint.h>
 
 namespace sgm_gpu

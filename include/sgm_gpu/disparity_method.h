@@ -18,14 +18,14 @@
 
 #include <stdint.h>
 #include <opencv2/opencv.hpp>
-#include "util.h"
-#include "configuration.h"
-#include "costs.h"
-#include "hamming_cost.h"
-#include "median_filter.h"
-#include "cost_aggregation.h"
-#include "debug.h"
-#include "left_right_consistency.h"
+#include "sgm_gpu/util.h"
+#include "sgm_gpu/configuration.h"
+#include "sgm_gpu/costs.h"
+#include "sgm_gpu/hamming_cost.h"
+#include "sgm_gpu/median_filter.h"
+#include "sgm_gpu/cost_aggregation.h"
+#include "sgm_gpu/debug.h"
+#include "sgm_gpu/left_right_consistency.h"
 
 namespace sgm_gpu
 {

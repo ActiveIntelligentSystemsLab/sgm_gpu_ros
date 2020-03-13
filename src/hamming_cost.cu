@@ -14,7 +14,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ***********************************************************************/
 
-#include "hamming_cost.h"
+#include "sgm_gpu/hamming_cost.h"
 
 namespace sgm_gpu
 {

@@ -17,7 +17,7 @@
 #define COSTS_H_
 
 #include <stdint.h>
-#include "configuration.h"
+#include "sgm_gpu/configuration.h"
 
 namespace sgm_gpu
 {

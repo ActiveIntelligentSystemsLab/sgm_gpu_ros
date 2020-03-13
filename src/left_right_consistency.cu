@@ -14,8 +14,8 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ***********************************************************************/
 
-#include "left_right_consistency.h"
-#include "configuration.h"
+#include "sgm_gpu/left_right_consistency.h"
+#include "sgm_gpu/configuration.h"
 
 namespace sgm_gpu
 {
