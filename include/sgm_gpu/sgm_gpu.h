@@ -45,11 +45,10 @@ private:
 
   // Memory for disparity computation
   // d_: for device
-  cudaStream_t stream1_, stream2_, stream3_;//, stream4, stream5, stream6, stream7, stream8;
   uint8_t *d_im0_;
   uint8_t *d_im1_;
-  cost_t *d_transform0_;
-  cost_t *d_transform1_;
+  uint32_t *d_transform0_;
+  uint32_t *d_transform1_;
   uint8_t *d_cost_;
   uint8_t *d_disparity_;
   uint8_t *d_disparity_filtered_uchar_;
@@ -68,9 +67,6 @@ private:
   bool memory_allocated_;
 
   uint32_t cols_, rows_;
-
-  dim3 BLOCK_SIZE_;
-  dim3 grid_size_;
 
   void allocateMemory(uint32_t cols, uint32_t rows);
   void freeMemory();

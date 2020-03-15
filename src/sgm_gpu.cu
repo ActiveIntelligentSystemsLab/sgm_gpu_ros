@@ -26,6 +26,14 @@
 
 namespace sgm_gpu
 {
+// Variables which have CUDA-related type are put here
+//   in order to include sgm_gpu.h from non-CUDA package
+cudaStream_t stream1_;
+cudaStream_t stream2_;
+cudaStream_t stream3_;
+
+dim3 BLOCK_SIZE_;
+dim3 grid_size_;
 
 SgmGpu::SgmGpu(const ros::NodeHandle& parent_node_handle) 
   : memory_allocated_(false), cols_(0), rows_(0)

@@ -51,8 +51,8 @@ target_link_libraries(${PROJECT_NAME}
 
 # Build ${PROJECT_NAME}_node
 add_executable(${PROJECT_NAME}_node 
-  src/${PROJECT_NAME}_node.cu
-  src/${PROJECT_NAME}_node_main.cu
+  src/${PROJECT_NAME}_node.cpp
+  src/${PROJECT_NAME}_node_main.cpp
 )
 add_dependencies(${PROJECT_NAME}_node
   ${PROJECT_NAME}
