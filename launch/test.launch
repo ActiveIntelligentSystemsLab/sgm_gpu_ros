@@ -1,14 +1,19 @@
 <?xml version="1.0"?>
 
 <launch>
-  <node name="sgm_gpu" pkg="sgm_gpu" type="sgm_gpu_node">
+  <node name="bag_player" pkg="rosbag" type="play" args="--loop $(find sgm_gpu)/test_input.bag"/>
+
+  <node name="sgm_gpu_node" pkg="sgm_gpu" type="sgm_gpu_node">
     <param name="image_transport" value="compressed"/>
     <remap from="left_image" to="stereo_robot/mobile_base/camera/left/image_raw"/>
     <remap from="right_image" to="stereo_robot/mobile_base/camera/right/image_raw"/>
   </node>
 
-  <node name="bag_player" pkg="rosbag" type="play" args="--loop $(find sgm_gpu)/data/test_input.bag"/>
+  <node name="input_viewer" pkg="image_view" type="image_view">
+    <param name="image_transport" value="compressed"/>
+    <remap from="image" to="stereo_robot/mobile_base/camera/left/image_raw"/>
+  </node>
   <node name="disparity_viewer" pkg="image_view" type="disparity_view">
-    <remap from="image" to="sgm_gpu/disparity"/>
+    <remap from="image" to="sgm_gpu_node/disparity"/>
   </node>
 </launch>

@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-
-<library path="lib/libsgm_gpu">
-  <class name="sgm_gpu/sgm_gpu_nodelet" type="sgm_gpu::SgmGpuNodelet" base_class_type="nodelet::Nodelet">
-  <description>
-    SGM stereo matching nodelet implemented by CUDA
-  </description>
-  </class>
-</library>

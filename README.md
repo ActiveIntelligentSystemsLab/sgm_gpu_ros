@@ -2,10 +2,6 @@
 
 `sgm_gpu` is a ROS package which contains a nodelet based on [Semi-Global Matching on the GPU by D. Hernandez-Juarez](https://github.com/dhernandez0/sgm) .
 
-Visualized result:
-
-![Result](images/sgm_sample.png)
-
 ## Prerequisite
 
 ### Without Docker
@@ -38,9 +34,9 @@ $ xhost +local:root
 $ sudo docker-compose up
 ```
 
-## sgm_gpu/sgm_gpu_nodelet
+## sgm_gpu_node
 
-A nodelet calculate disparity from stereo image topic.
+A node calculates disparity from stereo image topic.
 
 ### Subscribed topics
 
@@ -69,35 +65,31 @@ A nodelet calculate disparity from stereo image topic.
 
 ### Parameters
 
-- `~p1` (int)
+- `~libsgm/p1` (int)
 
   Parameter used in SGM algorithm.
   See [SGM on GPU papar](https://www.sciencedirect.com/science/article/pii/S1877050916306561) and [SGM paper](https://ieeexplore.ieee.org/document/4359315) .
 
   Default value is `6` from [SGM on GPU](https://github.com/dhernandez0/sgm) .
 
-- `~p2` (int) 
+- `~libsgm/p2` (int) 
 
   Parameter used in SGM algorithm.
   See [SGM on GPU papar](https://www.sciencedirect.com/science/article/pii/S1877050916306561) and [SGM paper](https://ieeexplore.ieee.org/document/4359315) .
 
   Default value is `96` from [SGM on GPU](https://github.com/dhernandez0/sgm) .
 
-- `~check_consistency` (bool)
+- `~libsgm/check_consistency` (bool)
 
   Check left-right consistency if true.
 
   Default value is `true`.
 
+- `~image_transport` (string)
+
+  See [image_transport](http://wiki.ros.org/image_transport)
+
 ### Limitations
 
 - Disparity range is `[0, 127]`
-
-## Nodes 
-
-### sgm_gpu_node
-
-Standalone node version of sgm_gpu_nodelet.
-
-Topics and parameters are same to the nodelet.
 

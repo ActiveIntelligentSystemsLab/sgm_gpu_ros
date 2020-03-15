@@ -14,17 +14,12 @@
   <depend>image_geometry</depend>
   <depend>image_transport</depend>
   <depend>message_filters</depend>
-  <depend>nodelet</depend>
   <depend>roscpp</depend>
   <depend>sensor_msgs</depend>
   <depend>stereo_msgs</depend>
   <!-- rosdep keys -->
   <depend>libopencv-dev</depend>
-  <depend>nvidia-cuda</depend>
-  <depend>nvidia-cuda-dev</depend>
-
-  <export>
-    <nodelet plugin="${prefix}/nodelet_plugin.xml"/>
-  </export>
+  <exec_depend>nvidia-cuda</exec_depend>
+  <build_depend>nvidia-cuda-dev</build_depend>
 </package>
 
